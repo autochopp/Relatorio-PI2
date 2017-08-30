@@ -1,4 +1,4 @@
-chapter[Requisitos]{Requisitos}
+\chapter[Requisitos]{Requisitos}
 	Para esse projeto foi decidido utilizar a Especificação por Exemplo (EPE). Especificação por exemplo, é uma 
 	abordagem colaborativa para definir os requisitos e os testes funcionais de negócios para produtos de software 
 	baseados na captura e requisitos usando exemplos realistas em vez de afirmações abstratas ilustrando \cite{bdd} 
@@ -20,50 +20,50 @@ chapter[Requisitos]{Requisitos}
 						\end{itemize}
 				\end{enumerate}
 
-				\item Sistema de tiragem de chope
+				\item Sistema de tiragem de chopp
 				\begin{enumerate}
 					\item Estimar volume restante no barril
 						\begin{itemize}
 							\item \textbf{Dado} uma leitura do  peso atual do barril
-							\item \textbf{Quando} houver a tiragem do chope
+							\item \textbf{Quando} houver a tiragem do chopp
 							\item \textbf{Então} passar novo valor calculado ao sistema de controle
 						\end{itemize}
 
 				\item Estimar volume no  copo.
 						\begin{itemize}
 							\item \textbf{Dado} a escolha do volume do copo
-							\item \textbf{Quando} verificado a compra e solicitado o chope
+							\item \textbf{Quando} verificado a compra e solicitado o chopp
 							\item \textbf{Então} aguardar posicionamento do copo na base
-							\item \textbf{E} Liberar o  volume escolhido de chope
+							\item \textbf{E} Liberar o  volume escolhido de chopp
 						\end{itemize}
 
 				\item Identificar a presença do copo na base.
 						\begin{itemize}
-							\item \textbf{Dado} verificado a compra e solicitado o chope.
+							\item \textbf{Dado} verificado a compra e solicitado o chopp.
 							\item \textbf{Quando} o copo estiver na base.
 							\item \textbf{Então} medir a distância entre o sensor e copo.
-							\item \textbf{E} Liberar as válvulas que controlam o fluxo de chope.
+							\item \textbf{E} Liberar as válvulas que controlam o fluxo de chopp.
 						\end{itemize}
 
 				\item Controlar a inclinação do copo.
 						\begin{itemize}
 							\item \textbf{Dado} a compra efetuada e liberada.
 							\item \textbf{Quando} o copo estiver na base.
-							\item \textbf{Então} inclinar a base para servir o chope.
+							\item \textbf{Então} inclinar a base para servir o chopp.
 						\end{itemize}
 
 				\item Assegurar o tamanho do colarinho escolhido.
 						\begin{itemize}
-							\item \textbf{Dado} a escolha do colarinho na compra do chope.
+							\item \textbf{Dado} a escolha do colarinho na compra do chopp.
 							\item \textbf{Quando} o copo o copo estiver posicionado e inclinado.
 							\item \textbf{Então} Ativar o mecanismo de colarinho e servir a quantidade solicitada.
 						\end{itemize}
 
-				\item Permitir a escolha do tipo de chope
+				\item Permitir a escolha do tipo de chopp
 						\begin{itemize}
-							\item \textbf{Dado} a escolha do tipo de chope.
+							\item \textbf{Dado} a escolha do tipo de chopp.
 							\item \textbf{Quando} a compra efetuada e liberada
-							\item \textbf{Então} ativar somente as válvulas do chope escolhido.
+							\item \textbf{Então} ativar somente as válvulas do chopp escolhido.
 						\end{itemize}
 				\end{enumerate}
 
@@ -75,18 +75,14 @@ chapter[Requisitos]{Requisitos}
 							\item \textbf{Quando} não tiver energia da rede concessionária
 							\item \textbf{Então} o sistema converte a tensão da bateria 12v para 220v
 						\end{itemize}
-				\end{enumerate}
 
-				\begin{enumerate}
 					\item Construir sistema retificador AC para DC.
 						\begin{itemize}
 							\item \textbf{Dado} que a máquina precisa armazenar energia
 							\item \textbf{Quando} o sistema de alimentação estiver funcionando
 							\item \textbf{Então} o sistema converte a tensão da rede para alimentar a bateria
 						\end{itemize}
-				\end{enumerate}
 
-				\begin{enumerate}
 					\item Efetuar a comutação de forma automática na falta de fase.
 						\begin{itemize}
 							\item \textbf{Dado} que a máquina comuta as fases
@@ -106,8 +102,8 @@ chapter[Requisitos]{Requisitos}
 					\item 
 						\begin{itemize}
 							\item \textbf{Dado} que o usuário esteja logado 
-							\item \textbf{Quando} tenha iniciado a compra de um chope 
-							\item \textbf{Então} deve ser possível ver as preferências de chope(colarinho, quantidades discretas e pré-definidas) 
+							\item \textbf{Quando} tenha iniciado a compra de um chopp 
+							\item \textbf{Então} deve ser possível ver as preferências de chopp(colarinho, quantidades discretas e pré-definidas) 
 						\end{itemize}
 
 				\item 
@@ -130,7 +126,7 @@ chapter[Requisitos]{Requisitos}
 				\item 
 						\begin{itemize}
 							\item \textbf{Dado} que o usuário já esteja cadastrado no sistema
-							\item \textbf{E} tenha clicado para comprar um chope
+							\item \textbf{E} tenha clicado para comprar um chopp
 							\item \textbf{E} tenha acesso a internet
 							\item \textbf{Quando} finalizado a compra 
 							\item \textbf{Então} deve ser possível inserir os dados do cartão de crédito
@@ -143,17 +139,17 @@ chapter[Requisitos]{Requisitos}
 							\item \textbf{Dado} que o usuário já tenha comprado tickets
 							\item \textbf{E} esteja autenticado no sistema
 							\item \textbf{Quando} clicar em uma opção meus tickets
-							\item \textbf{Então} deve ser possível  visualizar o QRCode que representa a unidade de chope.
+							\item \textbf{Então} deve ser possível  visualizar o QRCode que representa a unidade de chopp.
 							\item \textbf{E} deverá ter disponível uma opção para usar o ticket
 							\item \textbf{E} caso já tenha sido usado o ticket, deverá sumir da lista de tickets do usuário
 						\end{itemize}
 
 				\item 
 						\begin{itemize}
-							\item \textbf{Dada} a compra efetuada de um chope
+							\item \textbf{Dada} a compra efetuada de um chopp
 							\item \textbf{E} um usuário offline
 							\item \textbf{Quando} o usuário clicar para usar o ticket
-							\item \textbf{Então} a máquina de chope deve responder no sistema de interação
+							\item \textbf{Então} a máquina de chopp deve responder no sistema de interação
 							\item \textbf{E} o QRCode armazenado no celular, será descartado
 						\end{itemize}
 
@@ -171,7 +167,7 @@ chapter[Requisitos]{Requisitos}
 					\item 
 						\begin{itemize}
 							\item \textbf{Dado} que o administrador esteja logado no sistema
-							\item \textbf{Quando} o chope estiver acabando
+							\item \textbf{Quando} o chopp estiver acabando
 							\item \textbf{Então} uma notificação deve ser enviada
 						\end{itemize}
 
@@ -179,7 +175,7 @@ chapter[Requisitos]{Requisitos}
 						\begin{itemize}
 							\item \textbf{Dado} que o administrador esteja logado
 							\item \textbf{E} conectado a internet 
-							\item \textbf{Quando} a temperatura do barril de chope estiver fora do padrão estabelecido
+							\item \textbf{Quando} a temperatura do barril de chopp estiver fora do padrão estabelecido
 							\item \textbf{Então} o sistema deve enviar uma notificação informando o administrado
 						\end{itemize}
 
@@ -203,7 +199,7 @@ chapter[Requisitos]{Requisitos}
 						\begin{itemize}
 							\item \textbf{Dado} o administrador registrado
 							\item \textbf{Quando} autenticado no sistema via formulário de login
-							\item \textbf{Então} deve ser possível ver uma tela administrativa com status da máquina, tickets comprados e quantidade de chope.
+							\item \textbf{Então} deve ser possível ver uma tela administrativa com status da máquina, tickets comprados e quantidade de chopp.
 						\end{itemize}
 				\end{enumerate}
 
@@ -212,7 +208,7 @@ chapter[Requisitos]{Requisitos}
 					\item 
 						\begin{itemize}
 							\item \textbf{Dado} uma pessoa com tickets comprados
-							\item \textbf{Quando} ele selecionar a opção de “Tomar um chope” da tela inicial
+							\item \textbf{Quando} ele selecionar a opção de “Tomar um chopp” da tela inicial
 							\item \textbf{Então} deve ser instruído a exibir o QRCode na câmera da máquina para efetuar o uso do ticket
 							\item \textbf{E} a máquina deve informar se a leitura ocorreu de forma correta ou não.
 							\item \textbf{E} caso incorreta, deve-se tentar a leitura novamente até que seja efetuada de forma correta
@@ -223,7 +219,7 @@ chapter[Requisitos]{Requisitos}
 							\item \textbf{Dado} uma pessoa que inserir o ticket
 							\item \textbf{E} a máquina reconhecer
 							\item \textbf{Quando} a mensagem de sucesso aparecer
-							\item \textbf{Então} em seguida, deve-se instruir o usuário a pegar o chope
+							\item \textbf{Então} em seguida, deve-se instruir o usuário a pegar o chopp
 						\end{itemize}
 				\end{enumerate}
 
@@ -247,8 +243,8 @@ chapter[Requisitos]{Requisitos}
 			\item Sistema de Refrigeração
 				\begin{itemize}
 					\item \textbf{Dado} o sistema de refrigeração em funcionamento  
-					\item \textbf{Quando} o consumidor requisitar quaisquer tipos de chope 
-					\item \textbf{Então} Então as serpentinas devem resfriar o chope a temperatura de (1 a 3$^{\circ}$ C)
+					\item \textbf{Quando} o consumidor requisitar quaisquer tipos de chopp 
+					\item \textbf{Então} Então as serpentinas devem resfriar o chopp a temperatura de (1 a 3$^{\circ}$ C)
 				\end{itemize}
 			\item \textit{Nobreak} 
 				\begin{itemize}
@@ -257,12 +253,14 @@ chapter[Requisitos]{Requisitos}
 					\item \textbf{Então} o sistema backup de energia será usado
 				\end{itemize}
 			\item Sistemas de Alimentação e Proteção 
+				\begin{itemize}
 					\item \textbf{Dado} o suprimento principal de energia elétrica ao sistema de refrigeração.
 					\item \textbf{Quando} a máquina estiver em operação 
 					\item \textbf{Então} o sistema será suprido numa tensão de 220V
 					\item \textbf{Dado} o sistema sendo operado 
 					\item \textbf{Quando} a máquina estiver em funcionamento 
 					\item \textbf{Então} o sistema de prevenção de acidentes e choques deve proteger o usuário.
+				\end{itemize}
 		\end{enumerate}
 
 
