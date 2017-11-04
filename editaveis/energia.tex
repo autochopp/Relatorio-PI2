@@ -8,7 +8,6 @@
                             \item Tensão 220v Alternada;
                             \item Frequência 60Hz
                         \end{itemize}
-                    \item \textbf{Entrada}:
                     \item \textbf{Saída}: Tensão 12v Contínuo
                     \item \textbf{Fluxo de Eventos}: Transformação para 16v alternada; 
                         Retificação por diodos; Carga capacitiva para diminuição de
@@ -18,7 +17,6 @@
             \subsubsection[Inversor]{Inversor}
                 \begin{itemize}
                     \item \textbf{Pré Condição}: Tensão 12V contínua
-                    \item \textbf{Entrada}:
                     \item \textbf{Saída}: 
                         \begin{itemize}
                             \item Frequência 60Hz
@@ -27,21 +25,11 @@
                     \item \textbf{Fluxo de Eventos}: Chaveamento  de Transistores em ciclos 
                         diferentes (60Hz); Transformação de 12+12v para 220v Alternado.
                 \end{itemize}
-                            
-        \subsection[Refrigeração]{Refrigeração}
-            \subsubsection[Chiller]{Chiller}
-                \begin{itemize}
-                    \item \textbf{Pré Condição}:
-                    \item \textbf{Entrada}:
-                    \item \textbf{Saída}: 
-                    \item \textbf{Fluxo de Eventos}:
-                \end{itemize}
 
         \section[Sistema de Refrigeração]{Sistema de Refrigeração}
 
             Na parte de planejamento do sistema de refrigeração, foram feitos todos os
-            cálculos referentes ao sistema. Para o cálculo do tamanho da serpentina (perguntar
-            gabriela) Colocar tbm a vazão de retirada do chopp
+            cálculos referentes ao sistema. 
 
             O dimensionamento da potência do compressor, necessário no ciclo de
             refrigeração foi feito a partir da Primeira Lei da Termodinâmica, onde calculou-se a
@@ -81,9 +69,9 @@
             água na sua composição e que não foram encontrados dados para o calor específico 
             do chopp, a aproximação é aceitável. O valor de calor específico a pressão constante
             encontrado para a água é de 4,18KJ/Kg. A temperatura considerada na entrada do 
-            trocador de calor é a mesma que a temperatura ambiente de aproximadamente 25$\circ$C,
+            trocador de calor é a mesma que a temperatura ambiente de aproximadamente 25$^\circ$C,
             e a requerida na saída dele para estar de acordo com os requisitos é de
-            aproximadamente 1$\circ$C. Dessa forma, o fluxo mássico
+            aproximadamente 1$^\circ$C. Dessa forma, o fluxo mássico:
 
             \begin{equation}
                 m_{ponto} = p \times V
@@ -110,7 +98,7 @@
             \end{equation}
 
             Analisando o catálogo (nome), para essa carga térmica seria necessário um compressor de
-            $1 \over 2$ Hp. Colocar print do catálogo
+            $1 \over 2$ Hp.
 
             \subsubsection[Simulação do sistema de Refrigeração]{Simulação do sistema de Refrigeração}
                 Para a segurança do funcionamento do sistema de refrigeração usou-se o
@@ -118,7 +106,7 @@
                 software dados construtivos físicos dos seguintes elementos foram inseridos: 
                 Evaporador, Condensador, moto-compressor e tubulação. 
 
-                A figura seguinte ilustra a simulação realizada no software juntamente com os os
+                A figura \ref{simulacao-refrigeracao} ilustra a simulação realizada no software juntamente com os os
                 dados das temperaturas em cada estado. Essas temperaturas serão importantes para o
                 devido entendimento da troca de calor entre evaporador e o líquido externo ao
                 sistema a ser refrigerado.
@@ -135,7 +123,7 @@
                 de energia, ou seja, calor transferida no evaporador que corresponde a 4.00 kW.
                 Esse dado será validado nos testes do sistema já montado
 
-            \subsection[Simulação Chiller]{Simulação Chiller}
+            %\subsection[Simulação Chiller]{Simulação Chiller}
 
             \subsection[Montagem e Construção do Sistema de Refrigeração]{Montagem e Construção do Sistema de Refrigeração}
                 A montagem foi feita com apenas um chirller no protótipo por motivos de custo,
@@ -176,7 +164,7 @@
                         \end{figure}
 
                         Foi feito um desenho esquemático do Chirller no software CatiaV5 para
-                        possibilitar as simulações, ele está ilustrado na figura xx.
+                        possibilitar as simulações, ele está ilustrado na figura \ref{desenho-chiller}.
 
                         \begin{figure}[!htb]
                             \centering
@@ -243,8 +231,6 @@
                         no motocompressor. Além disso, como o filtro secador foi trocado optou-se, por medidas
                         preventivas, trocar o filtro capilar. 
 
-                        COLOCAR FOTO FILTRO DANFUR NO SISTEMA. 
-
                         A tubulação do Chiller escolhido consiste de alumínio e as demais tubulações do
                         sistema sao de cobre. Assim sendo, tornando inviável a solda desses dispositivos como
                         solução. A partir disso, optou-se pela aquisição da junção de gás (nipel)
@@ -283,7 +269,7 @@
                         conectou-se o manifold nos diferentes pontos do sistema, parte de baixa e alta
                         pressão e conectou-se a mangueira de abastecimento permitindo a passagem de
                         fluido refrigerante. A carga foi realizada até que o sistema não suportasse
-                        mais gás dentro desse. A figura abaixo mostra a recarga do sistema com o
+                        mais gás dentro desse. A figura \ref{recarga-gas} mostra a recarga do sistema com o
                         fluido refrigerante R22. 
 
                         \begin{figure}[!htb]
@@ -298,8 +284,6 @@
                         acima quanto a soldagem dos tubos e a recarga de gás. Tendo assim o sistema de
                         refrigeração abaixo. 
 
-                        COLOCAR FOTO BONITINHA DO SISTEMA 
-
                         Com o sistema pronto realizou-se testes e a partir desses montou-se a seguinte tabela
                         para o sistema de refrigeração: 
 
@@ -310,8 +294,8 @@
                             \begin{tabular}{|l|l|}
                                 \hline
                                 Capacidade Efetiva de Chopp & 2,5 Litros \\ \hline
-                                Tempo de Aquecimento do Sistema &  \\ \hline
-                                Tempo de Refrigeração &  \\ \hline
+                                Tempo de Aquecimento do Sistema & 29 minutos \\ \hline
+                                Tempo de Refrigeração &  20 - 37 minutos\\ \hline
                             \end{tabular}
                         \end{table}
                         
