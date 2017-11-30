@@ -112,7 +112,7 @@ no banco. O diagrama de classes abaixo representa as classes modelos do sistema:
 \begin{itemize}
     \item \textbf{User:} A classe \textit{User} guarda as informações referentes a um usuário.
     \item \textbf{Order:} A classe \textit{Order} guarda as informações referentes a um pedido
-     de um usuário específico. 
+    de um usuário específico. 
     \item \textbf{Chopp:} A classe \textit{Chopp} guarda as informações referentes a um chopp
     de um pedido específico.
     \item \textbf{SensorStorage:} A classe \textit{SensorStorage} guarda as informações referentes
@@ -150,17 +150,27 @@ requisições web do usuário. O diagrama de classes abaixo representa as classe
     \item \textbf{PagSeguro:} Entidade que representa a API do PagSeguro.
 \end{itemize}
 
-\subsubsection{Gerência e Configuração}
-
-Escrever sobre deploy e integração contínua
-
-% Para hospedagem do WebService foi usado o Heroku\footnote{\url{https://www.heroku.com/}}.
-% As vantagens em utilizar essa plataforma estão no custo, 
-% por ser uma ferramenta grátis e na facilidade de fazer o deploy.
-
 \subsection{Casos de Teste}
 
-Escrever como foi testada a API
+Para testar o funcionamento correto da API foi utilizada a ferramenta \textit{Rspec}, que nos permite
+testar a aplicação unitariamente, através de testes unitários. Com este tipo de teste é possível testar
+o comportamento de cada método. A imagem abaixo mostra a cobertura de testes: 
+
+COLOCAR IMAGEM
+
+Como a demanda do projeto é muito grande, não foi possível testar todos os métodos unitariamente, logo,
+foi utilizada a ferramenta \textit{Postman}. Essa ferramenta nos permite testar se a API está respondendo
+corretamente as requisições.
+
+\subsection{Gerência e Configuração}
+
+\begin{itemize}
+    \item \textbf{Deploy:} Para hospedagem do WebService foi usado o \textit{Heroku}\footnote{\url{https://www.heroku.com/}}.
+    As vantagens em utilizar essa plataforma estão no custo, por ser uma ferramenta grátis e na facilidade em realizar o deploy.
+    \item \textbf{Integração Contínua:} Para a integração contínua foi utilizada a ferramenta 
+    \textit{TravisCI}. Com esta ferramenta, a cada commit no repositório todos os testes são executados
+    automatizadamente, e assim é possivel verificar se aquele commit quebrou a build.
+\end{itemize}
 
 \section[Aplicativo Mobile]{Aplicativo Mobile}
 
@@ -238,7 +248,7 @@ Para compra e gerenciamento dos cupons de \textit{chopp}, torna-se necessário u
 
 \textbf{Então} a máquina de chopp deve responder no sistema de interação com mensagem sucesso.
 
-\subsubsection{Visualizar Cupon(QRCode)}
+\subsubsection{Visualizar Cupons(QRCode)}
 
 \textbf{Dado} que o usuário tenha comprado tickets
 
@@ -254,29 +264,19 @@ De acordo com os critérios observados do público alvo e do contexto considerad
 
 \subsection{Solução Adotada}
 
-Por fim, foi desenvolvido um aplicativo multiplataforma utilizando o \textit{framework Ionic 3}, baseado em \textit{Angular 4}. As imagens das telas do aplicativo estão na \ref{telasapp1} e \ref{telasapp2}.
+Por fim, foi desenvolvido um aplicativo multiplataforma utilizando o \textit{framework Ionic 3}, baseado em \textit{Angular 4}.
 
-\begin{figure}[H]
-\centering
-\includegraphics[scale= 0.4]{figuras/homepage.png}
-\includegraphics[scale= 0.4]{figuras/signup.png}   
-\includegraphics[scale= 0.4]{figuras/home-loged.png}
-\caption{Página Inicial - Registrar - Página Inicial com usuário logado. Fonte: Própria.}
-\label{telasapp1}
-\end{figure}
+\subsubsection{Arquitetura}
 
-\begin{figure}[H]
-\centering
-\includegraphics[scale= 0.5]{figuras/pedidos.png}        
-\includegraphics[scale= 0.5]{figuras/MeusChopps.png}
-\caption{Tela de Compra - Tela de Pedidos. Fonte: Própria.}
-\label{telasapp2}
-\end{figure}
+COLOCAR DIAGRAMAS E FAZER OVERVIEW SOBRE A ARQUITETURA IONIC/ANGULAR
+
+\subsubsection{Aplicativo}
+
+COLOCAR PRINTS ATUALIZADOS
 
 \subsection{Casos de Teste}
 
 Achar os casos de teste especificados no PC1...
-
 
 \section[Sistema Administrativo]{Sistema Administrativo}
 
@@ -286,76 +286,107 @@ as seguintes informações referentes ao estado da máquina: a quantidade de cho
 máquina possui, a temperatura de resfriamento e o status da conexão da máquina com a internet.
 
 Esses valores são recuperados através de requisições GET ao WebService que guarda essas informações recebendo
-requisições POST a cada 60 seg da aplicação que lê os dados dos sensores. 
+requisições POST a cada 60 seg da aplicação embarcada que lê os dados dos sensores. 
+
+\subsubsection{Aplicativo}
+
+COLOCAR PRINT ATUALIZADOS
 
 \section[Sistema de Validação de Compra]{Sistema de Validação de Compra}
-    \subsection[Requisitos do Projeto]{Requisitos do Projeto}
-        \subsubsection[Leitura de um cupom]{Leitura de um cupom}
-            \begin{itemize}
-                    \item \textbf{Dado} uma pessoa com cupons comprados
-                    \item \textbf{Quando} o mesmo selecionar a opção de validar um cupom da tela inicial
-                    \item \textbf{Então} deve ser instruído a exibir o QRCode na câmera da máquina para
-                            efetuar o uso do cupom
-                    \item \textbf{E} a máquina deve informar se a leitura ocorreu de forma correta ou não.
-            \end{itemize}
+\subsection[Requisitos do Projeto]{Requisitos do Projeto}
+\subsubsection[Leitura de um cupom]{Leitura de um cupom}
+\begin{itemize}
+    \item \textbf{Dado} uma pessoa com cupons comprados
+    \item \textbf{Quando} o mesmo selecionar a opção de validar um cupom da tela inicial
+    \item \textbf{Então} deve ser instruído a exibir o QRCode na câmera da máquina para
+    efetuar o uso do cupom
+    \item \textbf{E} a máquina deve informar se a leitura ocorreu de forma correta ou não.
+\end{itemize}
 
-        \subsubsection[Leitura de um cupom válido]{Leitura de um cupom válido}
-            \begin{itemize}
-                    \item \textbf{Dado} uma pessoa com um cupom válidado pelo sistema
-                    \item \textbf{Quando} o mesmo receber a confirmação de leitura com suceso do cupom
-                    \item \textbf{Então} deve ser instruído a pegar o copo na gaveta e posicionar o copo
-                            no suporte
-                    \item \textbf{E} aguardar o processo de serventia do chopp conforme as preferências.
-            \end{itemize}
+\subsubsection[Leitura de um cupom válido]{Leitura de um cupom válido}
+\begin{itemize}
+    \item \textbf{Dado} uma pessoa com um cupom válidado pelo sistema
+    \item \textbf{Quando} o mesmo receber a confirmação de leitura com suceso do cupom
+    \item \textbf{Então} deve ser instruído a pegar o copo na gaveta e posicionar o copo
+    no suporte
+    \item \textbf{E} aguardar o processo de serventia do chopp conforme as preferências.
+\end{itemize}
 
-         \subsubsection[Leitura de um cupom inválido]{Leitura de um cupom inválido}
-            \begin{itemize}
-                    \item \textbf{Dado} uma pessoa com um cupom invalidado pelo sistema
-                    \item \textbf{Quando} o mesmo receber a confirmação de leitura sem suceso do cupom
-                    \item \textbf{Então} deve ser instruído a tentar novamente a leitura do cupom
-                    \item \textbf{E} em caso de insucesso aguardar o sistema ser recuperado, ou entrar
-                            em contato com o proprietário da máquina.
-            \end{itemize}
+\subsubsection[Leitura de um cupom inválido]{Leitura de um cupom inválido}
+\begin{itemize}
+    \item \textbf{Dado} uma pessoa com um cupom invalidado pelo sistema
+    \item \textbf{Quando} o mesmo receber a confirmação de leitura sem suceso do cupom
+    \item \textbf{Então} deve ser instruído a tentar novamente a leitura do cupom
+    \item \textbf{E} em caso de insucesso aguardar o sistema ser recuperado, ou entrar
+    em contato com o proprietário da máquina.
+\end{itemize}
 
-     \subsection[Projeto]{Projeto}
-        O produto exige uma forma de retirada do chopp de forma autônoma, isso implicou no desenvolvimento
-        de uma aplicação gráfica acoplada na máquina que servisse de forma interativa com o usuário fazendo
-        a validação dos cupons e servindo os chopps conforme as preferências.
+\subsection[Projeto]{Projeto}
+O produto exige uma forma de retirada do chopp de forma autônoma, isso implicou no desenvolvimento
+de uma aplicação gráfica acoplada na máquina que servisse de forma interativa com o usuário fazendo
+a validação dos cupons e servindo os chopps conforme as preferências.
 
-     \subsection[Solução Adotada]{Solução Adotada}
-        Por ser necessária a criação de uma aplicação que não consumisse muitos recursos, optou-se pelo
-        uso do \textit{framework} Kivy juntamente com a linguagem de programação Python, fornecendo
-        um maior suporte ao foco principal da aplicação que é a leitura e reconhecimento de cupons (QrCodes)
+\subsection[Solução Adotada]{Solução Adotada}
+Por ser necessária a criação de uma aplicação que não consumisse muitos recursos, optou-se pelo
+uso do \textit{framework} Kivy juntamente com a linguagem de programação Python, fornecendo
+um maior suporte ao foco principal da aplicação que é a leitura e reconhecimento de cupons (QrCodes)
 
-        A solução foi instalada na própria máquina, sobre o sistema operacional padrão
-        da plataforma Raspberry, o Raspbian, com intuito de evitar incompatibilidade com outros
-        sistemas operacionais e retrabalho.
+A solução foi instalada na própria máquina, sobre o sistema operacional padrão
+da plataforma Raspberry, o Raspbian, com intuito de evitar incompatibilidade com outros
+sistemas operacionais e retrabalho.
 
-         \subsubsection[Arquitetura]{Arquitetura}
-            Por se tratar de uma aplicação com poucas funcionalidades, dados e entidades a serem trabalhadas,
-            não há uma distinção entre models e controllers. O diagrama de classes presente na imagem 
-            \ref{classes-kivy} representa a disposição das classes do sistema.
-            
-            \begin{figure}[!htb]
-                \centering
-                \includegraphics[scale= 0.3]{figuras/autochopp-machine-diagrama.png}        
-                \caption{Diagrma de clases do sistema de validação de compras. Fonte: Própria.}
-                \label{classes-kivy}
-            \end{figure}
-            
-            Analisando o diagrama, percebe-se que a maioria das classes estão sem métodos e sem atributos,
-            isso acontece pelo fato de que cada tela a ser renderizada, necessita de uma classe para estar
-            associada. O Kivy faz uma diferenciação entre classes \textit{Screens} e classes \textit{Apps}.
-            A primeira se refere a classes que estão associadas a alguma tela a ser renderizada, enquanto
-            que as classes do segundo tipo são as responsáveis por compilar uma \textit{build} do projeto
-            e executar o mesmo. Nesse caso a classe do tipo \textit{App} é a classe \textit{MainApp}. Outro
-            ponto a ser elucidado é que a transição entre telas é gerenciado pela classe
-            \textit{ScreenManagement} que acopla todas as \textit{Screens} do projeto e as integra permitindo
-            a classe \textit{MainApp} gerar a \textit{build} das mesmas.
+\subsubsection[Arquitetura]{Arquitetura}
+Por se tratar de uma aplicação com poucas funcionalidades, dados e entidades a serem trabalhadas,
+não há uma distinção entre models e controllers. O diagrama de classes presente na imagem 
+\ref{classes-kivy} representa a disposição das classes do sistema.
 
-            Além da parte gráfica e de leitura e validação de cupons, essa aplicação tem como objetivo
-            também a comunicação com a parte de leitura de alguns sensores para a construção do projeto.
-            Com isso, todos os scripts de leituras de sensores foram abrigados no pacote
-            \textit{embedded eletronics} criando uma interface entre as funções necessárias para o processo
-            de serventia de chopps e a aplicação gráfica. Tais funcionalidades são consumidas na classe
-            responsável pelo gerenciamento da leitura dos cupons junto a câmera.
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale= 0.3]{figuras/autochopp-machine-diagrama.png}        
+    \caption{Diagrama de clases do sistema de validação de compras. Fonte: Própria.}
+    \label{classes-kivy}
+\end{figure}
+
+Analisando o diagrama, percebe-se que a maioria das classes estão sem métodos e sem atributos,
+isso acontece pelo fato de que cada tela a ser renderizada, necessita de uma classe para estar
+associada. O Kivy faz uma diferenciação entre classes \textit{Screens} e classes \textit{Apps}.
+A primeira se refere a classes que estão associadas a alguma tela a ser renderizada, enquanto
+que as classes do segundo tipo são as responsáveis por compilar uma \textit{build} do projeto
+e executar o mesmo. Nesse caso a classe do tipo \textit{App} é a classe \textit{MainApp}. Outro
+ponto a ser elucidado é que a transição entre telas é gerenciado pela classe
+\textit{ScreenManagement} que acopla todas as \textit{Screens} do projeto e as integra permitindo
+a classe \textit{MainApp} gerar a \textit{build} das mesmas.
+
+Além da parte gráfica e de leitura e validação de cupons, essa aplicação tem como objetivo
+também a comunicação com a parte de leitura de alguns sensores para a construção do projeto.
+Com isso, todos os scripts de leituras de sensores foram abrigados no pacote
+\textit{embedded eletronics} criando uma interface entre as funções necessárias para o processo
+de serventia de chopps e a aplicação gráfica. Tais funcionalidades são consumidas na classe
+responsável pelo gerenciamento da leitura dos cupons junto a câmera.
+
+\subsubsection{Aplicação Final}
+
+COLOCAR PRINTS
+
+\subsection{Casos de Teste}
+
+\subsubsection{Leitura do Qrcode}
+
+Para leitura do Qrcode, o usuário deve posicionar um Qrcode em frente a câmera.
+Para testar esse comportamento, foi verificado se a câmera conseguia identificar a string dentro do Qrcode.
+
+\subsubsection{Validação do Qrcode}
+
+Para validar o Qrcode, a aplicação deve mandar uma requisição \textit{POST} ao WebService descrito anteriormente.
+Para testar este comportamento, foi verificado o retorno da requisição ao WebService.
+
+\subsubsection{Integração com o eletrônica}
+
+Como mostra a figura \ref{classes-kivy}, a classe \textit{MachineController} é a interface que separa
+a implementação dos componentes embarcados do sistema de validação de compras. Para testar o funcionamento
+correto do sistema independente do módulo embarcado, foi implementado os métodos da interface com
+\textit{sleeps}, que simularam o comportamento do módulo embarcado.
+
+\section{Solução Integrada}
+
+COLOCAR DIAGRAMAS DE SEQUÊNCIA
