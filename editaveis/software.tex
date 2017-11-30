@@ -1,6 +1,5 @@
 \chapter[Software]{Software}
 
-
 \section[WebService]{WebService}
 
 \subsection{Requisitos do Projeto}
@@ -155,49 +154,128 @@ requisições web do usuário. O diagrama de classes abaixo representa as classe
 
 Escrever sobre deploy e integração contínua
 
+% Para hospedagem do WebService foi usado o Heroku\footnote{\url{https://www.heroku.com/}}.
+% As vantagens em utilizar essa plataforma estão no custo, 
+% por ser uma ferramenta grátis e na facilidade de fazer o deploy.
 
 \subsection{Casos de Teste}
 
 Escrever como foi testada a API
 
-% Para hospedagem do WebService foi usado o Heroku\footnote{\url{https://www.heroku.com/}}.
-% As vantagens em utilizar essa plataforma estão no custo, 
-% por ser uma ferramenta grátis e na facilidade de fazer o deploy.
+\section[Aplicativo Mobile]{Aplicativo Mobile}
 
-\section[Sistema De Compras]{Sistema De Compras}
+Para compra e gerenciamento dos cupons de \textit{chopp}, torna-se necessário um aplicativo \textit{mobile} de forma que seja facilitado a acessibilidade para os usuários.
 
-O Sistema de Compras é composto de um app que será utilizado por
-quem deseja comprar um chopp. O comprador, ao utilizar o app, deve selecionar as preferências 
-em relação ao chopp e após essa etapa, inserir os dados do cartão de crédito para efetuar o pagamento. 
-Uma vez efetuado o pagamento, o sistema emitirá um código QR que deverá ser lido pela máquina
-para liberação do chopp.
+\subsection{Requisitos do Projeto}
 
-Esse sistema se comunica com o WebService citado anteriormente através de
-requisições GET e POST. Sendo assim, todo dado que precisa ser persistido ou recuperado é feito através
-dessas requisições.
+\subsubsection{Comprar Chopp}
 
-Para o desenvolvimento do app foi utilizado o framework Ionic. Esse framework
-nos permitiu uma maior produtividade visto que podemos desenvolver um app multi-
-plataforma que atende tanto a plataforma Android quanto IOS. 
+\textbf{Dado} que o usuário esteja logado
 
-Abaiixo estão listados as telas do aplicativo:
+\textbf{Quando} tenha iniciado a compra de um chopp
+
+\textbf{Então} deve ser possível ver as preferências de chope(colarinho, quantidades discretas e pré-definidas)
+
+\subsubsection{Cadastrar Usuário}
+
+\textbf{Dado} que o usuário tente entrar no sistema 
+
+\textbf{E} ainda não tenha se cadastrado
+
+\textbf{Quando} tenha iniciado o aplicativo
+
+\textbf{Então} terá disponível um formulário com email e senha para cadastro
+
+\subsubsection{Confirmar Cadastro}
+
+\textbf{Dada} que o usuário já tenha se cadastrado
+
+\textbf{E} recebido um email com link de confirmação
+
+\textbf{Quando} clicar no link
+
+\textbf{Então} deverá ser levado a uma mensagem de confirmação
+
+\textbf{E} deve ser possível se autenticar no sistema.
+
+\subsubsection{Finalizar Compra}
+
+\textbf{Dado} que o usuário já esteja cadastrado no sistema
+
+\textbf{E} tenha clicado para comprar um chopp
+
+\textbf{E} tenha acesso a internet
+
+\textbf{Quando} finalizado a compra
+
+\textbf{Então} deve ser possível inserir os dados do cartão de crédito
+
+\textbf{E} ser notificado se a compra foi bem sucedida ou não
+
+\textbf{E} em seus tickets devem estar disponíveis para uso na máquina
+
+\subsubsection{Listar Cupons(QRCode)}
+
+\textbf{Dado} que o usuário já tenha comprado tickets
+
+\textbf{E} esteja autenticado no sistema
+
+\textbf{Quando} clicar em uma opção meus tickets
+
+\textbf{Então} deve ser possível  visualizar o QRCode que representa a unidade de chopp
+
+\textbf{E} deverá ter disponível uma opção para usar o ticket
+
+\textbf{E} caso já tenha sido usado o ticket, deverá sumir da lista de tickets do usuário
+
+\subsubsection{Efetuar Compra Offline}
+
+\textbf{Dada} a compra efetuada de um chopp
+
+\textbf{E} um usuário offline
+
+\textbf{Quando} o usuário clicar para usar o ticket
+
+\textbf{Então} a máquina de chopp deve responder no sistema de interação com mensagem sucesso.
+
+\subsubsection{Visualizar Cupon(QRCode)}
+
+\textbf{Dado} que o usuário tenha comprado tickets
+
+\textbf{Quando} entrar na tela de visualização de tickets
+
+\textbf{Então} deve ser possível ver os tickets comprados segundo as preferências
+
+\textbf{E} poder escolher qual queira consumir
+
+\subsection{Projeto}
+
+De acordo com os critérios observados do público alvo e do contexto considerado, pensou-se em um aplicativo mobile que se comunica com um Web Service para realizar as operações descritas na especificação acima.
+
+\subsection{Solução Adotada}
+
+Por fim, foi desenvolvido um aplicativo multiplataforma utilizando o \textit{framework Ionic 3}, baseado em \textit{Angular 4}. As imagens das telas do aplicativo estão na \ref{telasapp1} e \ref{telasapp2}.
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[scale= 0.4]{figuras/homepage.png}
-    \includegraphics[scale= 0.4]{figuras/signup.png}   
-    \includegraphics[scale= 0.4]{figuras/home-loged.png}
-    \caption{Página Inicial - Registrar - Página Inicial com usuário logado. Fonte: Própria.}
-    \label{telasapp1}
+\centering
+\includegraphics[scale= 0.4]{figuras/homepage.png}
+\includegraphics[scale= 0.4]{figuras/signup.png}   
+\includegraphics[scale= 0.4]{figuras/home-loged.png}
+\caption{Página Inicial - Registrar - Página Inicial com usuário logado. Fonte: Própria.}
+\label{telasapp1}
 \end{figure}
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[scale= 0.5]{figuras/pedidos.png}        
-    \includegraphics[scale= 0.5]{figuras/MeusChopps.png}
-    \caption{Tela de Compra - Tela de Pedidos. Fonte: Própria.}
-    \label{telasapp2}
+\centering
+\includegraphics[scale= 0.5]{figuras/pedidos.png}        
+\includegraphics[scale= 0.5]{figuras/MeusChopps.png}
+\caption{Tela de Compra - Tela de Pedidos. Fonte: Própria.}
+\label{telasapp2}
 \end{figure}
+
+\subsection{Casos de Teste}
+
+Achar os casos de teste especificados no PC1...
 
 
 \section[Sistema Administrativo]{Sistema Administrativo}
