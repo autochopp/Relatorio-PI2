@@ -97,9 +97,60 @@ e podem ser facilmente acessados em: \url{https://github.com/autochopp/embedded_
 
 \section{Casos de teste}
 
+Neste tópico está descrito como foram elaborados os casos de testes para os subsistemas da área eletrônica, tais testes visam buscar defeitos na sequência de funcionamento e na estrutura de componentes.
+
+\subsection{Controle de Temperatura}
+
+\begin{itemize}
+    
+    \item Resumo: Este caso descreve como o subsistema de controle de temperatura irá atuar em resposta a estímulos e suas ações.
+
+    \item Pré-condição: Existir um resfriamento da serpentina, o líquido presente deve estar em contato com o sensor de temperatura.
+
+    \item Entrada: Temperatura lida através do sensor DS18B20.
+
+    \item Ação: Acionar e desligar o compressor responsável pelo resfriamento do chopp.
+
+    \item Resultados Esperados: Entregar o chopp ao sistema de saída de chopp na temperatura correta.
+
+\end{itemize}        
+
+\subsection{Abertura do Reservatório de Copos}
+
+\begin{itemize}
+
+    \item Resumo: Será aqui descrito como e quando o reservatório de copos irá ser acionado. 
+
+    \item Pré-condição: Copos no compartimento e chopp gelado.
+
+    \item Entrada: Validação de \textit{QR code} autenticada via software.
+
+    \item Ação: Atuar, através de módulos relés, nas solenoides que atuam no compartimento de copos.
+
+    \item Resultados: Copo liberado para ser posicionado pelo usuário.
+
+\end{itemize}        
+
+
+\subsection{Controle de Saída de Chopp}
+
+\begin{itemize}
+
+    \item Resumo: Caso de teste para o controle de saída de chopp idealizando seu funcionamento. 
+
+    \item Pré-condição: Chopp gelado entregue pelo sistema de resfriamento, copo liberado e posicionado.
+
+    \item Entrada: Posicionamento do copo no suporte.
+
+    \item Ação: Inclinação do suporte para correta tiragem e leitura da altura de chopp presente no copo.
+
+    \item Resultados: Chopp com servido com a quantidade requisitada de colarinho e volumes corretos.
+
+\end{itemize}        
+
 \section{Funcionamento}
 
-A Figura \ref{state_machine} representa o funcionamento e a interação dos sistemas de eletrônica por meio
+A Figura~\ref{state_machine} representa o funcionamento e a interação dos sistemas de eletrônica por meio
 de uma máquina de estados. Nela, as etapas de liberação do copo, verificação da posição do copo, inclinação do copo,
 tiragem do chopp, retorno do copo a posição inicial e inserção do colarinho são mostradas.
 
@@ -114,7 +165,7 @@ Inicialmente, a máquina aguarda a solicitação de tiragem de chopp, bem como a
 Após ter isso confirmado, os dados referentes ao tipo de tiragem são processados (tamanho do copo, quantidade de colarinho
 e tipo de chopp) e as configurações para uma tiragem correta são feitas.
 
-Logo após isso, a máquina aciona a solenoide que libera o copo aprópriado ao tamanho de chopp selecionado e aguarda que o 
+Logo após isso, a máquina aciona a solenoide que libera o copo apropriado ao tamanho de chopp selecionado e aguarda que o 
 usuário  posicione o copo no suporte da máquina. O  sistema foi pensado de modo que o usuário tem um tempo limite para
 posicionar o copo no suporte, após o qual a tiragem é desconsiderada e a máquina volta ao seu estado inicial de espera.
 
