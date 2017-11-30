@@ -1,101 +1,167 @@
 \chapter[Software]{Software}
 
-    \section[WebService]{WebService}
+\section[WebService]{WebService}
 
-        A demanda do problema exige que diferentes hardwares se integrem com uma
-        mesma base de dados. Fundamentalmente, o Smartphone do usuário realiza a compra, e
-        o token deve reconhecer o QrCode para que o usuário consuma o chopp.
-        
-        Para solucionar essa demanda foi proposto uma arquitetura orientada a serviços
-        (SOA), tal que uma webservice REST seja responsável pela persistência e autenticação de todos os
-        dados relevantes do sistema, incluindo a autenticação de pagamentos.
+\subsection{Requisitos do Projeto}
 
-        A tecnologia escolhida para implementação desse sistema foi o framework o 
-        Ruby On Rails\footnote{\url{http://rubyonrails.org/}}, pela facilidade no desenvolvimento, 
-        ampla comunidade e experiência da equipe. Sendo o Ruby na versão 2.3.0 e o Rails na versão 5.0.5.
+\subsubsection{Cadastrar usuário}
 
-        Para autenticação de pagamentos foi utilizada a API do PagSeguro\footnote{\url{https://github.com/pagseguro/ruby}},
-        que recebe as requisições do WebService com os dados do comprador e registra a transação caso os dados estejam corretos,
-        ou retorna erros, caso contrário. Quando o pagamento dessa transação muda de status, ou seja, é aprovado, o PagSeguro
-        manda uma notificação de volta para o WebService de modo que assim possa ser gerado o QRCode.
+\textbf{Dado} que a API receba uma requisição para cadastrar um novo usuário
 
-        A persistência dos dados ocorre seguindo o modelo abaixo:
+\textbf{E} todos os campos do usuário sejam válidos
 
-        \begin{figure}[H]
-            \centering
-            \includegraphics[scale= 0.4]{figuras/Diagrama-de-classes.png}
-            \caption{Modelagem. Fonte: Própria.}
-            \label{modelagem}
-        \end{figure}
+\textbf{Então} o usuário deve ser cadastrado.
 
-        Para hospedagem do WebService foi usado o Heroku\footnote{\url{https://www.heroku.com/}}.
-        As vantagens em utilizar essa plataforma estão no custo, 
-        por ser uma ferramenta grátis e na facilidade de fazer o deploy.
+\subsubsection{Autenticar usuário}
 
-    \section[Sistema Administrativo]{Sistema Administrativo}
+\textbf{Dado} que a API receba uma requisição para autenticar um usuário
 
-        O Sistema administrativo está incorporado ao aplicativo do Sistema de Compras, porém apenas usuários
-        administradores possuem acesso. Ao utilizar o aplicativo, o usuário visualiza
-        as seguintes informações referentes ao estado da máquina: a quantidade de chopp que a
-        máquina possui, a temperatura de resfriamento e o status da conexão da máquina com a internet.
+\textbf{E} todos os campos do usuário sejam válidos
 
-        Esses valores são recuperados através de requisições GET ao WebService que guarda essas informações recebendo
-        requisições POST a cada 60 seg da aplicação que lê os dados dos sensores. 
-    
-    \section[Sistema de Validação de Compra]{Sistema de Validação de Compra}
-        
-        O sistema de validação se trata do módulo responsável pela validação dos dados da compra,
-        e dar o inicio no processo de serventia de chopp conforme as característias são pré-definidas.
-        Esse subsistema tinha como resultados esperados uma aplicação que pudesse prover ao usuário
-        a leitura do \textit{QRCode} gerado no momento da compra do chopp por meio de uma câmera 
-        acoplada na máquina de onde o chopp é armazenado. No \textit{QRCode} estão contidas as informações
-        referentes as preferências do consumidor no que tange sua bebida.
-        
-        Devido à necessidade de que o usuário tenha acesso a uma câmera para leitura do \textit{QRCode},
-        foi escolhido o \textit{framework} Python Kivy\footnote{\url{https://kivy.org/}} por fornecer um ambiente
-        \textit{touchscreen} com um baixo consumo de recursos, uma vez que essa aplicação estará 
-        instanciada em uma Raspberry responsável por gerenciar outros módulos operacionais do projeto.
+\textbf{Então} o token correspondente ao usuário deve ser gerado.
 
-        Desta forma, foi então desenvolvida aplicação Autochopp-Machine \footnote{\url{https://github.com/autochopp/autochopp-machine}} que fornece de forma interativa 
-        com a validação de \textit{QRCodes} e iniciação do processo de retirada do chopp. 
+\subsubsection{Realizar Pagamento}
 
-        Além do que foi citado, a aplicação também possui a responsabilidade de fazer requisições junto a API
-        para que a mesma possa informar se o \textit{QRCode} lido é válido, significando que a compra foi 
-        efetuada com sucesso, caso não śeja válido, é exibida uma mensagem de erro. A partir da combinação
-        de preferências feitas no momento da compra, é gerado um identificador que é vinculado ao 
-        \textit{QRCode}. Esse identificador é o responsável por passar as informações via socket para que
-        os componentes eletrônicos vinculados a máquina sejam capazes de atuar na composição do chopp conforme
-        suas especificações.
+\textbf{Dado} que a API receba uma requisição para registrar um pagamento
 
-        \begin{figure}[H]
-            \centering
-            \includegraphics[scale= 0.4]{figuras/home-screen.png}
-            \caption{Tela Inicial. Fonte: Própria.}
-            \label{home-screen}
-        \end{figure}
+\textbf{E} os dados de pagamento sejam validados junto a API do PagSeguro
 
-        \begin{figure}[H]
-            \centering
-            \includegraphics[scale= 0.4]{figuras/leitor-qrcode.png}
-            \caption{Tela de Leitura de \textit{QRCode}. Fonte: Própria.}
-            \label{leitor-qrcode}
-        \end{figure}
+\textbf{Então} a transação deve ser efetivada.
 
-        \begin{figure}[H]
-            \centering
-            \includegraphics[scale= 0.4]{figuras/sucesso.png}
-            \caption{Tela informando que o \textit{QRCode} foi lido com sucesso. Fonte: Própria.}
-            \label{sucesso}
-        \end{figure}
+\subsubsection{Gerar Qrcode}
 
-        \begin{figure}[H]
-            \centering
-            \includegraphics[scale= 0.4]{figuras/falha.png}
-            \caption{Tela informando que o \textit{QRCode} não foi lido com sucesso. Fonte: Própria.}
-            \label{falha}
-        \end{figure}
-    
-        
+\textbf{Dado} que a API receba uma notificação da API do PagSeguro
+
+\textbf{E} o status da transação seja alterado para \textit{paga}
+
+\textbf{Então} deve ser gerado um QrCode.
+
+\subsubsection{Validar qrcode}
+
+\textbf{Dado} que a API receba uma requisição com um QrCode
+
+\textbf{E} o QrCode seja válido
+
+\textbf{Então} deve ser retornado as informações referente ao QrCode.
+
+\subsubsection{Mostrar chopps}
+
+\textbf{Dado} que a API receba uma requisição para mostrar os chopps de um usuário
+
+\textbf{E} o usuário esteja logado
+
+\textbf{Então} deve ser retornado os chopps referentes a esse usuário.
+
+\subsubsection{Salvar dados dos sensores}
+
+\textbf{Dado} que a API receba uma requisição para salvar os dados dos sensores
+
+\textbf{E} os dados sejam válidos
+
+\textbf{Então} os dados devem ser salvos.
+
+\subsubsection{Mostrar dados dos sensores}
+
+\textbf{Dado} que a API receba uma requisição para mostrar os dados dos sensores
+
+\textbf{E} o usuário seja um administrador
+
+\textbf{Então} os dados devem ser mostrados.
+
+\subsection{Projeto}
+
+A demanda do problema exige que diferentes hardwares se integrem com uma
+mesma base de dados. Fundamentalmente, o Smartphone do usuário realiza a compra, e
+a máquina deve validar o QrCode para que o usuário consuma o chopp.
+
+Para solucionar essa demanda foi proposto uma arquitetura orientada a serviços
+(SOA), tal que uma webservice REST seja responsável pela persistência e autenticação de todos os
+dados relevantes do sistema. Sendo assim esse WebService será responsável por se comunicar com
+todos os outros subsistemas.
+
+O modelo de domínio abaixo traz uma visão inicial das entidades presentes no sistema.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale= 0.5]{figuras/modelo-dominio.png}
+    \caption{Modelo de Domínio. Fonte: Própria.}
+    \label{modelagem}
+\end{figure}
+
+\subsection{Solução Adotada}
+
+Visto que é requisito primordial do sistema o checkout de pagamentos via cartão de cŕedito, a
+tecnologia escolhida para implementação desse WebService foi o framework 
+Ruby On Rails\footnote{\url{http://rubyonrails.org/}}, pois a API de pagamentos do PagSeguro
+fornece suporte a essa tecnologia. A versão utilizada do Ruby foi a versão 2.3.0 e o Rails a versão 5.0.5.
+
+\subsubsection[Arquitetura]{Arquitetura}
+
+\subsubsubsection{Models}
+
+As classes modelos no Rails representam as entidades e seus relacionamentos, e são responsáveis pelo gerenciamento dos dados
+no banco. O diagrama de classes abaixo representa as classes modelos do sistema:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale= 0.5]{figuras/diagrama-models.png}
+    \caption{Diagrama de Classes - Models. Fonte: Própria.}
+    \label{modelagem}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{User:} A classe \textit{User} guarda as informações referentes a um usuário.
+    \item \textbf{Order:} A classe \textit{Order} guarda as informações referentes a um pedido
+     de um usuário específico. 
+    \item \textbf{Chopp:} A classe \textit{Chopp} guarda as informações referentes a um chopp
+    de um pedido específico.
+    \item \textbf{SensorStorage:} A classe \textit{SensorStorage} guarda as informações referentes
+    aos valores lidos dos sensores do módulo embarcado.
+    \item \textbf{AuthenticateUser:} A classe \textit{AuthenticateUser} é responsável por autenticar um usuário
+    na base de dados.
+    \item \textbf{AuthorizeApiRequest:} A classe \textit{AuthorizeApiRequest} é reponsável por 
+    decodificar determinado token de autenticação.
+\end{itemize}
+
+\subsubsubsection{Controllers}
+
+As classes controladoras no Rails são responsáveis por se comunicar com as classes modelos, e são elas que lidam com
+requisições web do usuário. O diagrama de classes abaixo representa as classes controladoras do sistema:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale= 0.5]{figuras/diagrama-controllers.png}
+    \caption{Diagrama de Classes - Controllers. Fonte: Própria.}
+    \label{modelagem}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{ApplicationController:} A classe \textit{ApplicationController} é a controladora padrão do Rails
+    e todas as outras controladoras são herdadas a partir desta.
+    \item \textbf{UsersController:} A classe \textit{UsersController} é responsável por enviar e receber os dados dos usuários.
+    \item \textbf{AuthenticationController:} A classe \textit{AuthenticationController} é reponsável por receber os dados do usuário
+    e realizar a autenticação.
+    \item \textbf{ChoppsController:} A classe \textit{ChoppsController} é responsável por enviar e receber os dados dos chopps.
+    \item \textbf{SensorsController:} A classe \textit{SensorsController} é responsável por enviar e receber os dados dos sensores.
+    \item \textbf{CheckoutController:} A classe \textit{CheckoutController} é responsável por receber os dados de pagamento e enviar
+    a API do PagSeguro.
+    \item \textbf{NotificationController:} A classe \textit{NotificationController} é reponsável por receber notificações da API
+    do PagSeguro quando uma transação muda de status.
+    \item \textbf{PagSeguro:} Entidade que representa a API do PagSeguro.
+\end{itemize}
+
+\subsubsection{Gerência e Configuração}
+
+Escrever sobre deploy e integração contínua
+
+% Para hospedagem do WebService foi usado o Heroku\footnote{\url{https://www.heroku.com/}}.
+% As vantagens em utilizar essa plataforma estão no custo, 
+% por ser uma ferramenta grátis e na facilidade de fazer o deploy.
+
+\subsection{Casos de Teste}
+
+Escrever como foi testada a API
+
 \section[Aplicativo Mobile]{Aplicativo Mobile}
 
 Para compra e gerenciamento dos cupons de \textit{chopp}, torna-se necessário um aplicativo \textit{mobile} de forma que seja facilitado a acessibilidade para os usuários.
@@ -186,10 +252,6 @@ Para compra e gerenciamento dos cupons de \textit{chopp}, torna-se necessário u
 
 De acordo com os critérios observados do público alvo e do contexto considerado, pensou-se em um aplicativo mobile que se comunica com um Web Service para realizar as operações descritas na especificação acima.
 
-\subsection{Casos de Teste}
-
-Achar os casos de teste especificados no PC1...
-
 \subsection{Solução Adotada}
 
 Por fim, foi desenvolvido um aplicativo multiplataforma utilizando o \textit{framework Ionic 3}, baseado em \textit{Angular 4}. As imagens das telas do aplicativo estão na \ref{telasapp1} e \ref{telasapp2}.
@@ -210,3 +272,73 @@ Por fim, foi desenvolvido um aplicativo multiplataforma utilizando o \textit{fra
 \caption{Tela de Compra - Tela de Pedidos. Fonte: Própria.}
 \label{telasapp2}
 \end{figure}
+
+\subsection{Casos de Teste}
+
+Achar os casos de teste especificados no PC1...
+
+
+\section[Sistema Administrativo]{Sistema Administrativo}
+
+O Sistema administrativo está incorporado ao aplicativo do Sistema de Compras, porém apenas usuários
+administradores possuem acesso. Ao utilizar o aplicativo, o usuário visualiza
+as seguintes informações referentes ao estado da máquina: a quantidade de chopp que a
+máquina possui, a temperatura de resfriamento e o status da conexão da máquina com a internet.
+
+Esses valores são recuperados através de requisições GET ao WebService que guarda essas informações recebendo
+requisições POST a cada 60 seg da aplicação que lê os dados dos sensores. 
+
+\section[Sistema de Validação de Compra]{Sistema de Validação de Compra}
+
+O sistema de validação se trata do módulo responsável pela validação dos dados da compra,
+e dar o inicio no processo de serventia de chopp conforme as característias são pré-definidas.
+Esse subsistema tinha como resultados esperados uma aplicação que pudesse prover ao usuário
+a leitura do \textit{QRCode} gerado no momento da compra do chopp por meio de uma câmera 
+acoplada na máquina de onde o chopp é armazenado. No \textit{QRCode} estão contidas as informações
+referentes as preferências do consumidor no que tange sua bebida.
+
+Devido à necessidade de que o usuário tenha acesso a uma câmera para leitura do \textit{QRCode},
+foi escolhido o \textit{framework} Python Kivy\footnote{\url{https://kivy.org/}} por fornecer um ambiente
+\textit{touchscreen} com um baixo consumo de recursos, uma vez que essa aplicação estará 
+instanciada em uma Raspberry responsável por gerenciar outros módulos operacionais do projeto.
+
+Desta forma, foi então desenvolvida aplicação Autochopp-Machine \footnote{\url{https://github.com/autochopp/autochopp-machine}} que fornece de forma interativa 
+com a validação de \textit{QRCodes} e iniciação do processo de retirada do chopp. 
+
+Além do que foi citado, a aplicação também possui a responsabilidade de fazer requisições junto a API
+para que a mesma possa informar se o \textit{QRCode} lido é válido, significando que a compra foi 
+efetuada com sucesso, caso não śeja válido, é exibida uma mensagem de erro. A partir da combinação
+de preferências feitas no momento da compra, é gerado um identificador que é vinculado ao 
+\textit{QRCode}. Esse identificador é o responsável por passar as informações via socket para que
+os componentes eletrônicos vinculados a máquina sejam capazes de atuar na composição do chopp conforme
+suas especificações.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale= 0.4]{figuras/home-screen.png}
+    \caption{Tela Inicial. Fonte: Própria.}
+    \label{home-screen}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale= 0.4]{figuras/leitor-qrcode.png}
+    \caption{Tela de Leitura de \textit{QRCode}. Fonte: Própria.}
+    \label{leitor-qrcode}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale= 0.4]{figuras/sucesso.png}
+    \caption{Tela informando que o \textit{QRCode} foi lido com sucesso. Fonte: Própria.}
+    \label{sucesso}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale= 0.4]{figuras/falha.png}
+    \caption{Tela informando que o \textit{QRCode} não foi lido com sucesso. Fonte: Própria.}
+    \label{falha}
+\end{figure}
+
+
