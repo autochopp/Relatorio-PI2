@@ -287,5 +287,95 @@ fez-se necessário o uso de um \textit{driver} L298N. A Figura \ref{motor} mostr
 	
 \section{Relatório de teste}
 
+\subsection{Relatório Controle de Temperatura}
+\textbf{ \\
+  Título: Relatório Controle de Temperatura  \\
+    Autores: Gabriel Araújo, Ithallo Guimarães, Lucas Raposo e Oziel da Silva\\
+      Data: 15/11/2017} \\
 
 
+
+\subsubsection{Introdução}
+    Neste experimento será testado a capacidade e a precisão das medidas realizadas pelo sensor de temperatura DS18B20, utilizado neste trabalho para o acionamento do compressor visando manter a temperatura correta do chopp.
+
+\subsubsection{Materiais}
+\begin{itemize}
+     \item Sensor DS18B20
+     \item Resistor de 4.7 KOhms
+     \item Raspberry
+     \item Módulo Relé
+         
+\end{itemize}
+
+\subsubsection{Procedimento Experimental}
+     Após posicionar o sensor na saída de chopp, ligou-se o sensor a raspberry e utilizou a resistência entre o cado de alimentação VCC e o cabo de dados. Utilizando de código implementado em python foram feitas diversas leituras de temperatura, de posse destes dados a compressor era ativado ou desativado de acordo com as necessidades do projeto. As medições em seguida foram aferidas com um termômetro laser.
+\subsubsection{Resultados e Discussão}
+     Comparando os dados medidos com aqueles do termômetro laser percebeu-se uma pequena diferença, mas nada que ultrapassasse o erro fornecido pelo fabricante, a ativação do compressor através do módulo relé foi realizada dentro da margem de temperatura aplicados.
+\subsubsection{Conclusão}
+     Ao final percebeu-se uma precisão satisfatória do sensor, confirmando assim o seu uso no sistema de controle da temperatura do chopp.
+
+%%%%%%%%%%%%%
+
+
+\subsection{Relatório Abertura do Compartimento de Copos}     
+\textbf{ \\
+  Título: Relatório Abertura do Compartimento de Copos  \\
+    Autores: Gabriel Araújo, Ithallo Guimarães, Lucas Raposo e Oziel da Silva \\
+      Data: 17/11/2017} \\
+
+
+
+\subsubsection{Introdução}
+    Este subsistema é responsável pela liberação do copo ao cliente, o copo será liberado automaticamente cabendo ao cliente apenas posiciona-lo no devido lugar. Coube a eletrônica nesse subsistema a missão de ativar e desativar a solenoide que irá puxar uma porta, desta forma os copos inclinados cairão no compartimento.
+
+\subsubsection{Materiais}
+\begin{itemize}
+     \item Solenoide com mola
+     \item Raspberry
+     \item Módulo Relé
+     \item Fonte de alimentação 12V    
+         
+\end{itemize}
+
+\subsubsection{Procedimento Experimental}
+    Para este experimento realizou-se a ligação da solenoide ao módulo relé, o pino responsável pela compartimento de copos era ativado e desativado como se fossem sucessivas aberturas do compartimento de copo, testando assim além da resposta o comportamento da mola presente na solenoide.
+
+\subsubsection{Conclusão}
+    A mola apresentou uma boa resposta, mas o experimento apresentaria melhores resultados caso fosse realizado juntamente com o mecanismo de liberação para que o tempo necessário para a passagem de um copo pudesse ser medido com maior fidelidade.
+
+%%%%%%%%%%%%%%%%%
+
+\subsection{Relatório Saída de Chopp}    
+ \textbf{ \\
+  Título: Relatório Saída de Chopp \\
+    Autores: Gabriel Araújo, Ithallo Guimarães, Lucas Raposo e Oziel da Silva \\
+      Data: 17/11/2017} \\
+
+
+
+\subsubsection{Introdução}
+    Este subsistema irá tratar da liberação de chopp, que consiste no processo de verificação do copo, inclinação e ativação da torneira.
+
+\subsubsection{Materiais}
+\begin{itemize}
+     \item Sensor de trilha
+     \item Raspberry
+     \item Motores de passo
+     \item Fonte de alimentação 12V    
+         
+\end{itemize}
+
+\subsubsection{Procedimento Experimental}
+
+    Para este experimento foram testados dois módulos, o primeiro consiste em medir uma coluna de chopp através do sensor de trilha que detecta a espuma do chopp e a inclinação do copo através dos motores de passo.
+
+    Os sensores de trilha foram fixados em um copo e inclinados, foi adicionado ao copo então chopp quando atingida a altura esperada o sensor avisava através de um LED.
+    Os motores foram testados através de giros em diversos ângulos, seu software permitia como entrada um ângulo em graus e então seu eixo executava a rotação solicitada.
+
+\subsubsection{Conclusão}
+
+   O sensor de trilha conseguiu detectar a borda de espuma, apenas necessita de uma boa calibragem. Os motores também rotacionaram o ângulo desejado faltando apenas definir esse dado juntamente com o pessoal responsável pele mecanismo.
+     
+
+     
+\noindent
