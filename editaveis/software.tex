@@ -289,56 +289,73 @@ Esses valores são recuperados através de requisições GET ao WebService que g
 requisições POST a cada 60 seg da aplicação que lê os dados dos sensores. 
 
 \section[Sistema de Validação de Compra]{Sistema de Validação de Compra}
+    \subsection[Requisitos do Projeto]{Requisitos do Projeto}
+        \subsubsection[Leitura de um cupom]{Leitura de um cupom}
+            \begin{itemize}
+                    \item \textbf{Dado} uma pessoa com cupons comprados
+                    \item \textbf{Quando} o mesmo selecionar a opção de validar um cupom da tela inicial
+                    \item \textbf{Então} deve ser instruído a exibir o QRCode na câmera da máquina para
+                            efetuar o uso do cupom
+                    \item \textbf{E} a máquina deve informar se a leitura ocorreu de forma correta ou não.
+            \end{itemize}
 
-O sistema de validação se trata do módulo responsável pela validação dos dados da compra,
-e dar o inicio no processo de serventia de chopp conforme as característias são pré-definidas.
-Esse subsistema tinha como resultados esperados uma aplicação que pudesse prover ao usuário
-a leitura do \textit{QRCode} gerado no momento da compra do chopp por meio de uma câmera 
-acoplada na máquina de onde o chopp é armazenado. No \textit{QRCode} estão contidas as informações
-referentes as preferências do consumidor no que tange sua bebida.
+        \subsubsection[Leitura de um cupom válido]{Leitura de um cupom válido}
+            \begin{itemize}
+                    \item \textbf{Dado} uma pessoa com um cupom válidado pelo sistema
+                    \item \textbf{Quando} o mesmo receber a confirmação de leitura com suceso do cupom
+                    \item \textbf{Então} deve ser instruído a pegar o copo na gaveta e posicionar o copo
+                            no suporte
+                    \item \textbf{E} aguardar o processo de serventia do chopp conforme as preferências.
+            \end{itemize}
 
-Devido à necessidade de que o usuário tenha acesso a uma câmera para leitura do \textit{QRCode},
-foi escolhido o \textit{framework} Python Kivy\footnote{\url{https://kivy.org/}} por fornecer um ambiente
-\textit{touchscreen} com um baixo consumo de recursos, uma vez que essa aplicação estará 
-instanciada em uma Raspberry responsável por gerenciar outros módulos operacionais do projeto.
+         \subsubsection[Leitura de um cupom inválido]{Leitura de um cupom inválido}
+            \begin{itemize}
+                    \item \textbf{Dado} uma pessoa com um cupom invalidado pelo sistema
+                    \item \textbf{Quando} o mesmo receber a confirmação de leitura sem suceso do cupom
+                    \item \textbf{Então} deve ser instruído a tentar novamente a leitura do cupom
+                    \item \textbf{E} em caso de insucesso aguardar o sistema ser recuperado, ou entrar
+                            em contato com o proprietário da máquina.
+            \end{itemize}
 
-Desta forma, foi então desenvolvida aplicação Autochopp-Machine \footnote{\url{https://github.com/autochopp/autochopp-machine}} que fornece de forma interativa 
-com a validação de \textit{QRCodes} e iniciação do processo de retirada do chopp. 
+     \subsection[Projeto]{Projeto}
+        O produto exige uma forma de retirada do chopp de forma autônoma, isso implicou no desenvolvimento
+        de uma aplicação gráfica acoplada na máquina que servisse de forma interativa com o usuário fazendo
+        a validação dos cupons e servindo os chopps conforme as preferências.
 
-Além do que foi citado, a aplicação também possui a responsabilidade de fazer requisições junto a API
-para que a mesma possa informar se o \textit{QRCode} lido é válido, significando que a compra foi 
-efetuada com sucesso, caso não śeja válido, é exibida uma mensagem de erro. A partir da combinação
-de preferências feitas no momento da compra, é gerado um identificador que é vinculado ao 
-\textit{QRCode}. Esse identificador é o responsável por passar as informações via socket para que
-os componentes eletrônicos vinculados a máquina sejam capazes de atuar na composição do chopp conforme
-suas especificações.
+     \subsection[Solução Adotada]{Solução Adotada}
+        Por ser necessária a criação de uma aplicação que não consumisse muitos recursos, optou-se pelo
+        uso do \textit{framework} Kivy juntamente com a linguagem de programação Python, fornecendo
+        um maior suporte ao foco principal da aplicação que é a leitura e reconhecimento de cupons (QrCodes)
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale= 0.4]{figuras/home-screen.png}
-    \caption{Tela Inicial. Fonte: Própria.}
-    \label{home-screen}
-\end{figure}
+        A solução foi instalada na própria máquina, sobre o sistema operacional padrão
+        da plataforma Raspberry, o Raspbian, com intuito de evitar incompatibilidade com outros
+        sistemas operacionais e retrabalho.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale= 0.4]{figuras/leitor-qrcode.png}
-    \caption{Tela de Leitura de \textit{QRCode}. Fonte: Própria.}
-    \label{leitor-qrcode}
-\end{figure}
+         \subsubsection[Arquitetura]{Arquitetura}
+            Por se tratar de uma aplicação com poucas funcionalidades, dados e entidades a serem trabalhadas,
+            não há uma distinção entre models e controllers. O diagrama de classes presente na imagem 
+            \ref{classes-kivy} representa a disposição das classes do sistema.
+            
+            \begin{figure}[!htb]
+                \centering
+                \includegraphics[scale= 0.3]{figuras/autochopp-machine-diagrama.png}        
+                \caption{Diagrma de clases do sistema de validação de compras. Fonte: Própria.}
+                \label{classes-kivy}
+            \end{figure}
+            
+            Analisando o diagrama, percebe-se que a maioria das classes estão sem métodos e sem atributos,
+            isso acontece pelo fato de que cada tela a ser renderizada, necessita de uma classe para estar
+            associada. O Kivy faz uma diferenciação entre classes \textit{Screens} e classes \textit{Apps}.
+            A primeira se refere a classes que estão associadas a alguma tela a ser renderizada, enquanto
+            que as classes do segundo tipo são as responsáveis por compilar uma \textit{build} do projeto
+            e executar o mesmo. Nesse caso a classe do tipo \textit{App} é a classe \textit{MainApp}. Outro
+            ponto a ser elucidado é que a transição entre telas é gerenciado pela classe
+            \textit{ScreenManagement} que acopla todas as \textit{Screens} do projeto e as integra permitindo
+            a classe \textit{MainApp} gerar a \textit{build} das mesmas.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale= 0.4]{figuras/sucesso.png}
-    \caption{Tela informando que o \textit{QRCode} foi lido com sucesso. Fonte: Própria.}
-    \label{sucesso}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale= 0.4]{figuras/falha.png}
-    \caption{Tela informando que o \textit{QRCode} não foi lido com sucesso. Fonte: Própria.}
-    \label{falha}
-\end{figure}
-
-
+            Além da parte gráfica e de leitura e validação de cupons, essa aplicação tem como objetivo
+            também a comunicação com a parte de leitura de alguns sensores para a construção do projeto.
+            Com isso, todos os scripts de leituras de sensores foram abrigados no pacote
+            \textit{embedded eletronics} criando uma interface entre as funções necessárias para o processo
+            de serventia de chopps e a aplicação gráfica. Tais funcionalidades são consumidas na classe
+            responsável pelo gerenciamento da leitura dos cupons junto a câmera.
