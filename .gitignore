@@ -33,9 +33,12 @@
 *.tdo
 *.xml
 pi1.bcf
+*.idx
+*.bbl
 *~
 *.brf
 *.backup
 *.swp
+.DS_Store
 
 
