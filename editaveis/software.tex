@@ -389,4 +389,30 @@ correto do sistema independente do módulo embarcado, foi implementado os métod
 
 \section{Solução Integrada}
 
-COLOCAR DIAGRAMAS DE SEQUÊNCIA
+Com o objetivo de demonstrar a integração da solução, por meio da interação entre os subsistemas a partir a ação inicial 
+do usuário, foram criados diagramas de sequência com duas das principais funcionalidades do sistema (Compra do chopp e 
+Tiragem do chopp).
+
+
+"\textit{O diagrama de sequência é um diagrama comportamental que preocupa-se com a ordem temporal em que as mensagens 
+são trocadas entre os objetos envolvidos em um determinado processo.}\footnote{GUEDES, Gilleanes TA. UML 2-Uma Abordagem 
+Prática-1ª Edição. Novatec Editora, 2011.}" Partindo dessa definição, os diagramas de sequências 
+foram criados, tratando os sistemas como objetos da solução de software global. Os diagramas são apresentados em seguida, 
+e envolvem a interação entre WebService, Aplicativo Mobile (engloba o Sistema Administrativo), Aplicação Embarcada (Sistema de 
+Validação de Compra) e API do PagSeguro, tendo como ator o usuário da solução.
+
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale= 0.4]{figuras/Diagrama-de-Sequencia-Compra-do-Chopp.png}        
+    \caption{Diagrama de Sequência - Compra do Chopp. Fonte: Própria.}
+    \label{classes-kivy}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale= 0.4]{figuras/Diagrama-de-Sequencia-Tiragem-do-Chopp.png}        
+    \caption{Diagrama de Sequência - Tiragem do Chopp. Fonte: Própria.}
+    \label{classes-kivy}
+\end{figure}
+
