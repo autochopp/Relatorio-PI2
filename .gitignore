@@ -41,3 +41,5 @@ pi1.bcf
 *.swp
 .DS_Store
 relatorio.pdf
+relatorio.fls
+relatorio.ind
