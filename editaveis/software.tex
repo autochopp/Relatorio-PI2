@@ -156,10 +156,15 @@ Para testar o funcionamento correto da API foi utilizada a ferramenta \textit{Rs
 testar a aplicação unitariamente, através de testes unitários. Com este tipo de teste é possível testar
 o comportamento de cada método. A imagem abaixo mostra a cobertura de testes: 
 
-COLOCAR IMAGEM
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale= 0.3]{figuras/Cobertura.png}
+    \caption{Cobertura de Testes. Fonte: Própria.}
+    \label{modelagem}
+\end{figure}
 
 Como a demanda do projeto é muito grande, não foi possível testar todos os métodos unitariamente, logo,
-foi utilizada a ferramenta \textit{Postman}. Essa ferramenta nos permite testar se a API está respondendo
+também foi utilizada a ferramenta \textit{Postman}. Essa ferramenta nos permite testar se a API está respondendo
 corretamente as requisições.
 
 \subsection{Gerência e Configuração}
@@ -272,7 +277,17 @@ COLOCAR DIAGRAMAS E FAZER OVERVIEW SOBRE A ARQUITETURA IONIC/ANGULAR
 
 \subsubsection{Aplicativo}
 
-COLOCAR PRINTS ATUALIZADOS
+A seguir estão as imagens das principais telas do aplicativo:
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale= 0.3]{figuras/Aplicativo/home.png}        
+    \includegraphics[scale= 0.3]{figuras/Aplicativo/home-loged.png}        
+    \includegraphics[scale= 0.3]{figuras/Aplicativo/compra.png}        
+    \includegraphics[scale= 0.3]{figuras/Aplicativo/chopps.png}        
+    \caption{Telas do Aplicativo. Fonte: Própria.}    
+    \label{home-page}
+\end{figure}
 
 \subsection{Casos de Teste}
 
@@ -288,9 +303,17 @@ máquina possui, a temperatura de resfriamento e o status da conexão da máquin
 Esses valores são recuperados através de requisições GET ao WebService que guarda essas informações recebendo
 requisições POST a cada 60 seg da aplicação embarcada que lê os dados dos sensores. 
 
-\subsubsection{Aplicativo}
+\subsection{Aplicativo}
 
-COLOCAR PRINT ATUALIZADOS
+A imagem abaixo representa a tela do usuário administrador:
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale= 0.4]{figuras/Aplicativo/admin.png}        
+    \caption{Tela do Administrador. Fonte: Própria.}    
+    \label{home-page}
+\end{figure}
+
 
 \section[Sistema de Validação de Compra]{Sistema de Validação de Compra}
 \subsection[Requisitos do Projeto]{Requisitos do Projeto}
@@ -387,7 +410,7 @@ a implementação dos componentes embarcados do sistema de validação de compra
 correto do sistema independente do módulo embarcado, foi implementado os métodos da interface com
 \textit{sleeps}, que simularam o comportamento do módulo embarcado.
 
-\section{Solução Integrada}
+\section{Subsistemas integrados}
 
 Com o objetivo de demonstrar a integração da solução, por meio da interação entre os subsistemas a partir a ação inicial 
 do usuário, foram criados diagramas de sequência com duas das principais funcionalidades do sistema (Compra do chopp e 

@@ -1,31 +1,288 @@
 \chapter[Energia]{Energia}
-    \section[Casos de Teste]{Casos de Teste}
-        \subsection[NoBreak]{NoBreak}
+    \section[NoBreak]{NoBreak}
+        \subsection[Requisitos do Projeto]{Requisitos do Projeto}
             \subsubsection[Retificador]{Retificador}
-                \begin{itemize}
-                    \item \textbf{Pré Condição}:
-                        \begin{itemize}
-                            \item Tensão 220v Alternada;
-                            \item Frequência 60Hz
-                        \end{itemize}
-                    \item \textbf{Saída}: Tensão 12v Contínuo
-                    \item \textbf{Fluxo de Eventos}: Transformação para 16v alternada; 
-                        Retificação por diodos; Carga capacitiva para diminuição de
-                        Ripple; Diodo Zener para regulação de Tensão.
-                \end{itemize}
-
+            	\textbf{Dado} que a concessionária de energia forneça tensão
+            	
+            	\textbf{E} a máquina esteja em funcionamento
+            	
+			    \textbf{Então} a tensão da bateria deve ser carregada 
+			    
             \subsubsection[Inversor]{Inversor}
-                \begin{itemize}
-                    \item \textbf{Pré Condição}: Tensão 12V contínua
-                    \item \textbf{Saída}: 
-                        \begin{itemize}
-                            \item Frequência 60Hz
-                            \item Tensão 220v Alternada
-                        \end{itemize}
-                    \item \textbf{Fluxo de Eventos}: Chaveamento  de Transistores em ciclos 
-                        diferentes (60Hz); Transformação de 12+12v para 220v Alternado.
-                \end{itemize}
+            	\textbf{Dado} que a bateria forneça tensão
+            	
+            	\textbf{E} a máquina esteja em funcionamento
+            	
+			    \textbf{Então} a maquina deve ter tensão de alimentação
+			    
+        \subsection[Projeto]{Projeto}     
+            \subsubsection[Retificador]{Retificador}            
+				O projeto do retificador do NoBreak tem o objetivo de carregar a bateria do 					dispositivo enquanto houver energia fornecida da concessionária. O retificador 				deve ser um circuito estável, mantendo o padrão de fornecer sempre a tensão de 				saída necessária para a carga (Bateria). Logo, os requisitos desse subproduto 					são:
 
+                \begin{itemize}
+                	\item Tensão de entrada: $220V_{AC}$
+                	\item Tensão de saída: $12V_{DC}$
+                	\item Corrente mínima: $5A$
+                \end{itemize}
+		
+				Atendendo a esses requisitou a proposta do projeto é um retificador linear com 				a corrente máxima fornecida a carga de 5A seguindo os seguintes passos:
+				
+                \begin{figure}[!htb]
+            		\centering
+            		\includegraphics[scale= 0.5]{figuras/Diagrama_Retificador.png}
+            		\caption{Diagrama de blocos do Retificador. Fonte: Própria.}
+            		\label{diagrama-retificador}
+            	\end{figure}
+            	
+				Para solucionar o que proposto, o primeiro passo foi calcular os parâmetros do 				circuito para suportar a corrente de 5A requisitada. A tensão do primário deve 				ser a tensão fornecida pela concessionária, no caso 220V. Para a tensão do 						secundário, deve-se utilizar a tensão de saída do circuito retificador, porém 					sabendo que o bloco retificador da figura 1 causa uma queda de tensão pequena, 				utilizou-se a tensão de secundário acima da necessária (12V). O valor 							comercial acima mais próximo para tensão de saída é de 16v. Para o 								transformador, necessitou-se o cálculo da potência dele.
+
+          	  	\begin{equation}
+                	S = V*I = 16*5 = 80VA
+            	\end{equation}
+            	
+				Onde
+				
+				V = Tensão no secundário do transformador
+				
+				I = Corrente requisitada pelo projeto
+				
+				S = Potência complexa (Volt-Ampère)
+
+				O transformador escolhido foi comprado pela internet com as exatas 								características propostas.
+
+                \begin{figure}[!htb]
+            		\centering
+            		\includegraphics[scale= 0.3]{figuras/Transformador.png}
+            		\caption{Transformador do Retificador. Fonte: Própria.}
+            		\label{transformador-retificador}
+            	\end{figure}	
+            	
+            	O bloco Retificador escolheu-se um retificador de meia ponte devido ao 							transformador ter um enrolamento secundário com Tap central. O funcionamento 					deste bloco é ceifar o lado negativo da tensão alternada. 			
+
+                \begin{figure}[!htb]
+            		\centering
+            		\includegraphics[scale= 0.5]{figuras/Retificador.png}
+            		\caption{Gráfico Tensão de entrada e saída de um diodo. Fonte: Própria.}
+            		\label{retificador}
+            	\end{figure}		
+            	
+            	Como são duas bobinas invertidas no secundário do transformador, uma bobina 					vai ceifar o lado negativo da tensão e a outra o lado positivo da tensão, ao 					somarem os dois resultados, o circuito resultante irá realizar o mesmo papel 					de um retificador de onda completa.
+            	
+				O diodo retificador deve suportar a corrente máxima do projeto de 5A. Para 						isso, utilizou-se um diodo 6A10 que de acordo com o datasheet, a corrente 						máxima suportada é de 5A.
+				
+				Observa-se que a tensão resultante após o bloco retificador oscilará entre um 					pulso e outro de forma relevante. Essa oscilação denomina-se Ripple. Para 						deixar a tensão de saída mais linear possível, utiliza-se o bloco redutro de 					ripple. Este bloco  tem como função atrasar o tempo de carregamento da onda, 					fazendo com que no momento do descarregamento a saída deste bloco não consiga 					acompanhar, mantendo uma tensão mais estável. Para isso, utiliza-se um 							capacitor em paralelo com o circuito. O capacitor deve ser grande para atrasar 				a onda, logo utiliza-se capacitores eletrolíticos, e suportar a tensão de pico 				da onda (No caso no mínimo 16v) Para isso utilizou-se um capacitor de 1000uF e 				50v.
+
+                \begin{figure}[!htb]
+            		\centering
+            		\includegraphics[scale= 0.2]{figuras/Capacitor.jpg}
+            		\caption{Capacitor redutor de Ripple. Fonte: Própria.}
+            		\label{capacitor}
+            	\end{figure}
+            	
+            	O bloco regulador de tensão tem a função de estabilizar a tensão para ficar o 					mais linear possível, porque para circuitos mais sensíveis a osicilação por 					menor que seja após o capacitor  pode ser prejudicial. Para realizar esta 						regulação, utiliza-se um diodo zener com a tensão zener exatamente na desejada 				para saída do projeto (No caso, 12v).  Para isso, utilizou-se um diodo zener 					4712A, cujo tensão zener é de 12v e a potência máxima é de 1w. Para proteção 					contra correntes invertida no circuito vinda da bateria, utilizou-se um diodo 					retificador 6A10 na saída do circuito no sentido da corrente convencional.
+		
+				O circuito completo do retificador foi simulado pelo software proteus e 						comprovado:
+				
+                \begin{figure}[!htb]
+            		\centering
+            		\includegraphics[scale= 0.4]{figuras/Circuito_Retificador.png}
+            		\caption{Simulação Retificador de tensão 12v. Fonte: Própria.}
+            		\label{retificador-completo}
+            	\end{figure}
+ 
+             \subsubsection[Inversor]{Inversor}
+				O projeto do inversor do NoBreak tem o objetivo de transformar a tensão 						contínua contida na bateria e transformá-la em tensão alternada para alimentar 				a carga . O inversor deve ser um circuito estável, mantendo o padrão de 						fornecer sempre a tensão de saída necessária para a carga (Máquina de Chopp). 					Logo, os requisitos desse subproduto são:
+				
+                \begin{itemize}
+                	\item Tensão de entrada: $12V_{DC}$
+                	\item Tensão de saída: $220V_{AC}$
+                	\item Corrente mínima: $3A$
+                \end{itemize}
+                
+                Atendendo a esses requisitou a proposta do projeto é um inversor com a 							corrente máxima fornecida a carga de 4,5A seguindo os seguintes passos:
+                
+                \begin{figure}[!htb]
+            		\centering
+            		\includegraphics[scale= 0.4]{figuras/Diagrama_Inversor.png}
+            		\caption{Diagrama de blocos do Inversor. Fonte: Própria.}
+            		\label{diagrama-inversor}
+            	\end{figure} 
+            	Para solucionar o que proposto, o primeiro passo foi calcular os parâmetros do 				circuito para suportar a corrente de 4,5A requisitada. A tensão do primário 					deve ser a tensão da bateria, no caso 12v. Para a tensão do secundário, deve-					se utilizar a tensão que a carga necessita, neste caso 220Vac,. Para o 							transformador, necessitou-se o cálculo da potência dele.    
+            	
+            	\begin{equation}
+                	S = V*I = 220*4,5 = 1kVA
+            	\end{equation}
+                
+                Onde	
+                
+                V = Tensão no secundário do transformador
+                
+				I = Corrente requisitada pelo projeto
+	
+				S = Potência complexa (Volt-Ampère)
+				
+				O transformador escolhido foi fabricado com as exatas características 							propostas.		
+
+                \begin{figure}[!htb]
+            		\centering
+            		\includegraphics[scale= 0.3]{figuras/Transformador_Inversor.jpg}
+            		\caption{Transformador do inversor. Fonte: Própria.}
+            		\label{transformador-inversor}
+            	\end{figure}  
+     
+            	O bloco oscilador tem como função criar uma onda modelo para criar a tensão 					alternada. Essa onda modelo deve ter frequência de 60Hz assim como é na tensão 				utilizada pela concessionária de energia. O primeiro teste de oscilador foi 					com um circuito oscilador a partir de um CI 4047. Esse CI tem a função de 						alternar entre uma saída e outra uma tensão na frequência determinada por uma 					equivalência entre resistor e capacitor na entrada do CI. Ao fazerem testes 					observou-se que a tensão de saída em uma das portas oscilava com a frequência 					duas vezes maior que a frequência na outra porta. A conclusão tirada desses 					testes é que o CI estava com defeito, porém por falta de tempo, adotou-se 						outra solução mais rápida.
+            	
+				A segunda solução aplicada foi realizar um circuito oscilado a partir de um 					microcontrolador. O controlador escolhido foi um AtTiny por ser pequeno, 						econômico e rápido o suficiente para esta aplicação. O programa compilado nele 				faz a função de escrever nível lógico alto em uma porta, aguardar 16,6ms 						(Aproximadamente 60Hz) escrever nível lógico baixo nesta porta e o inverso com 				outra porta. 	
+
+                \begin{figure}[!htb]
+            		\centering
+            		\includegraphics[scale= 0.2]{figuras/Attiny.jpg}
+            		\caption{Attiny 85. Fonte: Própria.}
+            		\label{attiny}
+            	\end{figure} 	
+            	
+            	A saída da etapa do oscilador é utilizada pelo bloco de ponte de MosFet. A 						ponte de MosFet tem a função de amplificar a onda gerada pelo oscilador além 					de ser capaz de suportar quantidades grandes de corrente. O MosFet escolhido 					para este projeto é o IRF2807, de acordo com o datasheet, o componente é capaz 				de suportar corrente de dreno de até 75A.	
+            	
+                \begin{figure}[!htb]
+            		\centering
+            		\includegraphics[scale= 0.2]{figuras/IRF2807.jpg}
+            		\caption{MosFet IRF2807. Fonte: Própria.}
+            		\label{mosfet}
+            	\end{figure}            						
+				
+				Após a ponte de MosFet o circuito passa pelo transformador e filtro RLC para 					alcançar o mais próximo de uma senóide com tensão RMS de 220v. O filtro RLC 					foi projetado para o circuito abaixo:	
+
+                \begin{figure}[!htb]
+            		\centering
+            		\includegraphics[scale= 1.0]{figuras/Filtro_RLC.png}
+            		\caption{Filtro RLC. Fonte: Própria.}
+            		\label{rlc}
+            	\end{figure}  				
+				
+				O filtro apesar de ser RLC, conta apenas com indutor e capacitor, pois a 						resistência do circuito é a própria resistência do indutor.
+				
+				O circuito todo projetado foi simulado de acordo com a imagem abaixo:
+				
+                \begin{figure}[!htb]
+            		\centering
+            		\includegraphics[scale= 0.4]{figuras/Circuito_inversor.png}
+            		\caption{Circuito inversor completo. Fonte: Própria.}
+            		\label{inversor}
+            	\end{figure} 
+            					
+				Alguns componentes como mostra a figura acima estão diferentes dos projetados 					pois no simulador não havia igual, mas foi pego o componente mais próximo para 				ser o mais próximo do real.          
+             
+        \subsection[Solução Adotada]{Solução Adotada}
+            \subsubsection[Retificador]{Retificador} 
+            	A partir dos testes de simulação montou-se o circuito em placa de fenolite. O 					design foi feito no software Traxmakker e para fabricação fez o processo 						térmico e depois corrosão.	
+            	
+                \begin{figure}[!htb]
+            		\centering
+            		\includegraphics[scale= 0.4]{figuras/Fenolite_Retificador.png}
+            		\caption{Trilhas do circuito retificador. Fonte: Própria.}
+            		\label{retificador-fenolite}
+            	\end{figure}	
+            	
+                \begin{figure}[!htb]
+            		\centering
+            		\includegraphics[scale= 0.4]{figuras/Circuito_Retificador_Completo.png}
+            		\caption{Circuito Retificador Completo. Fonte: Própria.}
+            		\label{retificador-completo2}
+            	\end{figure}	
+            	
+				Para realizar a integração, o circuito retificador foi posicionado no 							local apresentado pela equipe de estrutura para o Nobreak. Na entrada do 						transformador adaptou-se a partir de um conector múltiplo um cabo PP $2,5mm^2$ 				de duas vias com um conector de tomada macho padrão ABNT 14136.             	
+
+                \begin{figure}[!htb]
+            		\centering
+            		\includegraphics[scale= 0.4]{figuras/Pardrao_tomada.jpg}
+            		\caption{Tomada macho padrão ABNT. Fonte: Própria.}
+            		\label{tomada}
+            	\end{figure}	 
+            	
+				Para saída do retificador adaptadou-se um cabo $6mm^2$ com um terminal de 						bateria automotiva universal para poder ter fácil acesso de tirar e 							colocar a bateria em caso de transporte ou manutenção.  
+				
+                \begin{figure}[!htb]
+            		\centering
+            		\includegraphics[scale= 0.4]{figuras/Terminal_Bateria.jpg}
+            		\caption{Terminal universal Bateria. Fonte: Própria.}
+            		\label{terminal}
+            	\end{figure}
+
+            	Notou-se que a corrente do circuito feito em testes estava limitada, e o 						componente que realiza este efeito é a resistência em série do circuito. Com 					isso, foi decidido em diminuir o valor resistivo o suficiente para deixar 						próximo ao máximo de potência dissipada. O valor do resistor que chegou 						próximo ao desejado foi $12\Omega$ e $10W$. A corrente máxima que o resistor 					passará é:
+            	
+          	  	\begin{equation}
+                	I = \frac{P}{V} = \frac{10}{12} = 0,833A
+            	\end{equation}            	
+            	
+            	A corrente máxima de 830mA é o suficiente para o projeto visto que a bateria 					não estará sobre carga a todo momento.
+
+             \subsubsection[Inversor]{Inversor}            
+				Para a fabricação da placa me fenolite atentou-se aos pontos em que a corrente 				será alta fazendo trilhas largas com capacidade para suportar a corrente 						necessária.
+
+                \begin{figure}[!htb]
+            		\centering
+            		\includegraphics[scale= 0.4]{figuras/Placa_inversor.png}
+            		\caption{Placa impressa do inversor. Fonte: Própria.}
+            		\label{inversor-projeto}
+            	\end{figure} 		
+
+				Percebe-se pelo circuito impresso que foram utilizados 5 mosfets para cada 						canal em paralelo. Colocar os Mosfets em paralelo faz com que a corrente por 					cada componente seja menor, aumentando a vida útil do componente e evitando 					que esquente excessivamente o sistema. Para cada canal de Mosfet será 							utilizado um dissipador de calor para melhorar a troca de calor do componente 					com o ambiente.		
+		
+                \begin{figure}[!htb]
+            		\centering
+            		\includegraphics[scale= 0.4]{figuras/Inversor_pronto.jpg}
+            		\caption{Circuito inversor no circuito impresso. Fonte: Própria.}
+            		\label{inversor-pronto}
+            	\end{figure} 		
+            	
+				De acordo com a figura acima, a saída do oscilador está em amarelo tem tensão 					de saída de 3,4v e frequência de 59,82Hz. O mesmo canal amplificado pelo 						MosFet apresenta a mesma frequência porém com tensão de 12,6v. 
+				
+				Para evitar a queima dos Mosfets, o oscilador não pode ter em nenhum momento 					os dois canais ligados, pois isso gera um curto circuito, queimando assim os 					mosfets. Para resolver este problema utilizou-se de um recurso chamado Tempo 					morto. Este tempo morto é um tempo no qual as duas portas do oscilador ficam 					destivadas para não haver curto entre os mosfets. Este tempo foi programado no 				Attiny e será ajustado quando houver integralização entre os projetos.           
+				
+                \begin{figure}[!htb]
+            		\centering
+            		\includegraphics[scale= 0.2]{figuras/Tempo_morto.jpg}
+            		\caption{Tempo morto em testes. Fonte: Própria.}
+            		\label{tempo-morto}
+            	\end{figure}
+       
+
+        \subsection[Casos de Teste]{Casos de Teste}
+            \subsubsection[Retificador]{Retificador}       
+           	Os primeiros testes mostraram que o circuito funcionou, porém a corrente 						máxima que o retificador forneceu foi cerca de $90mA$. Com essa corrente o 						Nobreak teria dificuldade para carregar a bateria, não sendo eficiente em caso 				de falta de energia da concessionária. 
+            	
+                \begin{figure}[!htb]
+            		\centering
+            		\includegraphics[scale= 0.6]{figuras/corrente_retificador.jpeg}
+            		\caption{Corrente primeiro teste no retificador. Fonte: Própria.}
+            		\label{corrente-retificador}
+            	\end{figure}            	
+             
+            \subsubsection[Inversor]{Inversor}
+            
+            	A partir do circuito montado a saída do bloco da ponte de Mosfet em testes foi:
+            	
+                \begin{figure}[!htb]
+            		\centering
+            		\includegraphics[scale= 0.2]{figuras/saida_inversor.jpg}
+            		\caption{Saída do bloco oscilador e ponte de MosFet. Fonte: Própria.}
+            		\label{saida-inversor}
+            	\end{figure}    
+    
+ 
+ 
+          	
+             	
+            	
+            	
+            	         
+            	
+ 	
+            	
+
+				
+				 	         		
+		
         \section[Sistema de Refrigeração]{Sistema de Refrigeração}
 
             Na parte de planejamento do sistema de refrigeração, foram feitos todos os
