@@ -269,39 +269,43 @@ De acordo com os critérios observados do público alvo e do contexto considerad
 
 \subsection{Solução Adotada}
 
-Por fim, foi desenvolvido um aplicativo multiplataforma utilizando o \textit{framework Ionic 3}, baseado em \textit{Angular 4}.
+Para entendimento da solução implementada, será discutido nos tópicos seguintes sobre a arquitetura e os resultados da implementação.
 
 \subsubsection{Arquitetura}
 
-COLOCAR DIAGRAMAS E FAZER OVERVIEW SOBRE A ARQUITETURA IONIC/ANGULAR
+Por fim, decidiu-se desenvolver um aplicativo multiplataforma utilizando o \textit{framework Ionic 3}, baseado em \textit{Angular 4}, uma biblioteca Typescript que facilita a criação de aplicativos \textit{Web} e \textit{Mobile}. Conforme \cite{ionic}, Ionic é um \textit{framework open source} para desenvolvimento de aplicativos \textit{mobile} utilizando tecnologias web(HTML, CSS, JavaScript). O Ionic usa do poder do Angular para trabalhar com componentização, elevando o reaproveitamento de código.
+
+\begin{figure}[!hb]
+    \centering
+    \includegraphics{figuras/ionicstructure.png}
+    \caption{Estrutura de diretórios do Ionic 3.}
+    \label{home-page}
+\end{figure}
 
 \subsubsection{Aplicativo}
 
-A seguir estão as imagens das principais telas do aplicativo:
+A seguir, de acordo com os requisitos acordados, estão as imagens das principais telas do aplicativo:
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[scale= 0.3]{figuras/Aplicativo/home.png}        
-    \includegraphics[scale= 0.3]{figuras/Aplicativo/home-loged.png}        
-    \includegraphics[scale= 0.3]{figuras/Aplicativo/compra.png}        
-    \includegraphics[scale= 0.3]{figuras/Aplicativo/chopps.png}        
-    \caption{Telas do Aplicativo. Fonte: Própria.}    
+    \includegraphics[scale= 0.3]{figuras/Aplicativo/home.png}
+    \includegraphics[scale= 0.3]{figuras/Aplicativo/home-loged.png}       
+    \includegraphics[scale= 0.3]{figuras/Aplicativo/compra.png}   
+    \includegraphics[scale= 0.3]{figuras/Aplicativo/chopps.png}   
+    \caption{Telas do Aplicativo. Fonte: Própria.}
     \label{home-page}
 \end{figure}
 
 \subsection{Casos de Teste}
 
-Achar os casos de teste especificados no PC1...
+Não foram especificados casos de teste para o aplicativo \textit{mobile}, pois acredita-se que a especificação por exemplo elicitada já serve como caso de teste, uma vez que os cenários não se divergem tanto.
+
 
 \section[Sistema Administrativo]{Sistema Administrativo}
 
-O Sistema administrativo está incorporado ao aplicativo do Sistema de Compras, porém apenas usuários
-administradores possuem acesso. Ao utilizar o aplicativo, o usuário visualiza
-as seguintes informações referentes ao estado da máquina: a quantidade de chopp que a
-máquina possui, a temperatura de resfriamento e o status da conexão da máquina com a internet.
+O Sistema administrativo está incorporado ao aplicativo do Sistema de Compras, porém apenas usuários administradores possuem acesso. Ao utilizar o aplicativo, o usuário visualiza as seguintes informações referentes ao estado da máquina: a quantidade de chopp que a máquina possui, a temperatura de resfriamento e o status da conexão da máquina com a internet.
 
-Esses valores são recuperados através de requisições GET ao WebService que guarda essas informações recebendo
-requisições POST a cada 60 seg da aplicação embarcada que lê os dados dos sensores. 
+Esses valores são recuperados através de requisições GET ao WebService que guarda essas informações recebendo requisições POST a cada 60 seg da aplicação embarcada que lê os dados dos sensores. 
 
 \subsection{Aplicativo}
 
