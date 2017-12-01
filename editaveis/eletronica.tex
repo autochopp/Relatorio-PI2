@@ -1,6 +1,4 @@
 \chapter[Eletrônica]{Eletrônica}
-
-
  
  A construção de uma máquina de venda autômoma de chopp depende da construção de diversos subsistemas,
  que correspondem aos requisitos do projeto. Assim, seguem os requisitos do projeto.
@@ -14,9 +12,10 @@
 Os códigos utilizados neste trabalho encontram-se em controle de versão na ferramenta GitHub 
 e podem ser facilmente acessados em: \url{https://github.com/autochopp/embedded_electronics}. 
 
+\section{Requisitos do Projeto}
 
-\section{Controle de temperatura}
-\subsection{Requisitos do projeto}
+\begin{enumerate}
+\item Controle de temperatua
 
 \textbf{Dado} que a leitura da temperatura do sensor de temperatura
 
@@ -24,62 +23,8 @@ e podem ser facilmente acessados em: \url{https://github.com/autochopp/embedded_
 
 \textbf{Então} acionar  relé de controle do compressor
 
-\subsection{Projeto}
- 
- A elaboração desse subsistema envolveu a busca por sensores resistentes a água, bem como entendimento 
- de sua comunicação, sua resolução e da necessidade de se incluir um resistor na sua implementação.
 
-\subsection{Solução adotada}
-
-Para realizar o controle da temperatura, permitindo que o chopp esteja sempre gelado quando da retirada, 
-é utilizado o sensor de temperatura DS18B20 presente na Figura \ref{sensor-temperatura}. 
-Ele  permite a leitura de temperatura  mesmo em ambientes úmidos, tal qual esta aplicação. 
-O sensor descrito mede temperaturas entre   $ -55 ^\circ C$ e $125 ^\circ C$ com erro de $\pm 0.5 ^\circ C$.
-O sensor encontra-se posicionado na saída de chopp, que permite uma leitura mais fidedigna da
-temperatura real do chopp, uma vez que  na saída o chopp já circulou por toda a serpentina e está em
-equilíbrio térmico. O modo como esse sensor é conectado pode ser visto na Figura \ref{esquema-temperatura}.
-
-\begin{figure}[!htb]
-            \centering
-         	\includegraphics[scale= 0.08]{figuras/temperatura.jpg}
-            \caption{Sensor de temperatura DS18B20. Fonte: Própria.}
-            \label{sensor-temperatura}
-\end{figure}
-               
-A medição da temperatura permite a ativação do compressor mantendo a temperatura na faixa
-ideal entre $-1$ e $1 ^\circ C$. Tal ativação será realizada pelo acionamento de um módulo relé  
-ligado ao compressor. 
-    
-\begin{figure}[!htb]
-           \centering
-           \includegraphics[scale= 0.5]{figuras/esquema.jpg}
-            \caption{Esquemático do sensor de temperatura. Imagem da internet.}
-            \label{esquema-temperatura}
-\end{figure}    
- 
-
-\subsection{Casos de teste}
-
-\begin{itemize}
-    
-    \item Resumo: Este caso descreve como o subsistema de controle de temperatura irá atuar em resposta a estímulos e suas ações.
-
-    \item Pré-condição: Existir um resfriamento da serpentina, o líquido presente deve estar em contato com o sensor de temperatura.
-
-    \item Entrada: Temperatura lida através do sensor DS18B20.
-
-    \item Ação: Acionar e desligar o compressor responsável pelo resfriamento do chopp.
-
-    \item Resultados Esperados: Entregar o chopp ao sistema de saída de chopp na temperatura correta.
-
-\end{itemize}        
-\newpage
-
-
-
-
-\section{Abertura do reservatório}
-\subsection{Requisitos do projeto}
+\item Abertura do reservatório de copos
 
 \textbf{Dado} que a leitura da temperatura do sensor seja maior 2ºC
 
@@ -88,49 +33,8 @@ ligado ao compressor.
 \textbf{Então} acionar ou não relé
 
 
-\subsection{Projeto}
 
-Define-se pela ativação e desativação de pino da \textit{Raspberry pi}  durante um tempo especificado, 
-acionando um módulo relé que, então, aciona uma ou outra solenoide que abre os reservatórios.
- Para tanto, foi realizado um estudos de quais  os componentes seriam mais adequado para tal 
- implementação.
-
-\subsection{Solução adotada}
-
- Esse serviço se fez necessário, após a decisão de disponibilizar o copo ao usuário, 
- portanto os copos são  armazenados na própria máquina. Para disponibilizar os copos, 
- eles são dispostos de forma que sempre que exista uma requisição de um chopp, 
- um copo caia em um reservatório próprio. Para empurrar os copos são utilizados duas 
- solenoides de modelo TAU-0530, uma delas pode ser vista na Figura \ref{solenoide}. 
-
-\begin{figure}[!h]
-            \centering
-         	\includegraphics[scale= 0.06]{figuras/solenoide.jpg}
-            \caption{Solenoide utilizado.}
-            \label{solenoide}
-\end{figure}
-
-	
-\subsection{Casos de teste}
-
-\begin{itemize}
-
-    \item Resumo: Será aqui descrito como e quando o reservatório de copos irá ser acionado. 
-
-    \item Pré-condição: Copos no compartimento e chopp gelado.
-
-    \item Entrada: Validação de \textit{QR code} autenticada via software.
-
-    \item Ação: Atuar, através de módulos relés, nas solenoides que atuam no compartimento de copos.
-
-    \item Resultados: Copo liberado para ser posicionado pelo usuário.
-
-\end{itemize}        
-
-
-
-\section{Controle de saída de chopp}
-\section{Requisitos do projeto}
+\item Controle da saída de chopp
 
 \begin{enumerate}
 
@@ -183,71 +87,50 @@ acionando um módulo relé que, então, aciona uma ou outra solenoide que abre o
 
 \textbf{Então} acionar ou não motor que controla o colarinho
 
+
+\end{enumerate}
+
 \end{enumerate}
 
 
-\subsection{Projeto}
-Para que se pudesse ter um controle do volume presente no copo e consequentemente volume 
-restante nos reservatórios, inicialmente pensou-se em utilizar dois sensores (por redundância), 
-sendo eles o sensor de fluxo YFS201 e uma célula de carga.
-
-Obtiveram-se resultados satisfatórios na montagem do sensor de fluxo, porém verificou-se um erro 
-muito grande em suas medidas, o qual chegava a dez porcento nos testes efetuados. 
-Já quanto ao sensor de carga, não houve sucesso em sua implementação, apresentando resultados quase que aleatórios.
-
-Após discutir o presente problema com professores e orientadores, outra solução foi proposta.
-A solução proposta se utiliza de diodos emissores de luz e fototransistores posicionados a 
-uma distância conhecida. Sabendo-se a bitola do tubo utilizado e, contando-se o tempo entre 
-os acionamentos, pode-se calcular o fluxo passante, porém também não se obteve sucesso nessa abordagem.
-
-Para a implementação dos outros subsistemas,  houve a necessidade de se estudar o funcionamento de motores de passo.
-
-
-\subsection{Solução adotada}
-
-\subsubsection{Presença do copo}
-Há a necessidade de se verificar a presença do copo no sistema para que o chopp possa ser tirado. 
-Para tanto, inicialmente utilizou-se o sensor ultrassônico HC-SR04, porém, o mesmo inviabilizou seu
-uso devido a complexidade de sua comunicação com o computador (\textit{Raspberry pi}).
-
-Como solução mais direta e que evitaria tal nível de complexidade, optou-se por utilizar um sensor de trilha, 
-que se comunica de forma direta com o computador e retorna um valor binário para a presença ou não do copo. 
-Essa escolha traz como consequências a necessidade de uma tira branca no copo
- e a necessidade de uso de um copo transparente, para não interferir com os sensores.
-
-
-\subsubsection{Estimar volume no copo}
-A solução final encontrada foi se utilizar de sensores de trilha posicionados ao longo do copo, juntamente com um acionamento 
-por tempo. O acionamento por tempo garante que não se passe do volume total do copo, em caso de falha,
-e o sensores de trilha garantem o volume solicitado. Isso foi projetado de modo que se garantisse uma maior precisão e eficácia
-na tiragem do chopp, dadas pelos sistemas redundantes.
-
-
-\subsubsection{Garantir o colarinho escolhido}
-O controle do colarinho é feito através da atuação de motores, estes  movimentam
-a alavanca que controla a saída de chopp e colarinho. Desta forma é necessário realizar 
-medições de tempo para cada tamanho de colarinho selecionável, servindo assim a quantidade. 
-Esse acionamento é feito por tempo e relaciona-se com a entrada de ar no  sistema.
-
-
-\subsubsection{Atuação dos motores}
-Dois dos mais importantes subsistemas que contribuem diretamente com a experiência do usuário são 
-a inclinação do copo e a tiragem automática do chopp, para tais tarefas fez-se o uso de motores de passo.
-Para o controle dos motores usou-se dos pinos da \textit{Raspberry pi}.
-
-Os motores precisam ser alimentados com 12V, para isso usa-se uma fonte de energia externa. Isso é dado pelo
- consumo de corrente dos motores, que é superior a aquela fornecida pelos pinos da \textit{Raspberry pi}. Assim,
-fez-se necessário o uso de um \textit{driver} L298N. A Figura \ref{motor} mostra o sistema dos motores montado.
-
-\begin{figure}[!h]
-            \centering
-         	\includegraphics[scale= 0.08]{figuras/motor.jpg}
-            \caption{Sistema de acionamento de motor de passo.}
-            \label{motor}
-\end{figure}
-
-
 \section{Casos de teste}
+
+Neste tópico está descrito como foram elaborados os casos de testes para os subsistemas da área eletrônica, tais testes visam buscar defeitos na sequência de funcionamento e na estrutura de componentes.
+
+\subsection{Controle de Temperatura}
+
+\begin{itemize}
+    
+    \item Resumo: Este caso descreve como o subsistema de controle de temperatura irá atuar em resposta a estímulos e suas ações.
+
+    \item Pré-condição: Existir um resfriamento da serpentina, o líquido presente deve estar em contato com o sensor de temperatura.
+
+    \item Entrada: Temperatura lida através do sensor DS18B20.
+
+    \item Ação: Acionar e desligar o compressor responsável pelo resfriamento do chopp.
+
+    \item Resultados Esperados: Entregar o chopp ao sistema de saída de chopp na temperatura correta.
+
+\end{itemize}        
+
+\subsection{Abertura do Reservatório de Copos}
+
+\begin{itemize}
+
+    \item Resumo: Será aqui descrito como e quando o reservatório de copos irá ser acionado. 
+
+    \item Pré-condição: Copos no compartimento e chopp gelado.
+
+    \item Entrada: Validação de \textit{QR code} autenticada via software.
+
+    \item Ação: Atuar, através de módulos relés, nas solenoides que atuam no compartimento de copos.
+
+    \item Resultados: Copo liberado para ser posicionado pelo usuário.
+
+\end{itemize}        
+
+
+\subsection{Controle de Saída de Chopp}
 
 \begin{itemize}
 
@@ -263,14 +146,15 @@ fez-se necessário o uso de um \textit{driver} L298N. A Figura \ref{motor} mostr
 
 \end{itemize}        
 
-\section{Subsistemas integrados}
-A Figura \ref{state_machine} representa o funcionamento e a interação dos sistemas de eletrônica por meio
+\section{Funcionamento}
+
+A Figura~\ref{state_machine} representa o funcionamento e a interação dos sistemas de eletrônica por meio
 de uma máquina de estados. Nela, as etapas de liberação do copo, verificação da posição do copo, inclinação do copo,
 tiragem do chopp, retorno do copo a posição inicial e inserção do colarinho são mostradas.
 
 \begin{figure}[!htb]
             \centering
-         	\includegraphics[scale= 0.2]{figuras/maquina_estado_eletronica.png}
+         	\includegraphics[scale= 0.25]{figuras/maquina_estado_eletronica.png}
             \caption{Máquina de estados que representa o funcionamento do subsistema de tiragem de chopp.}
             \label{state_machine}
 \end{figure}
@@ -295,101 +179,109 @@ posição inicial e máquina retorna ao seu estado de espera por uma nova requis
 O sistema de refrigeração encontra-se funcionando independentemente dos processos de venda/tiragem de chopp e ocorre de forma
 contínua e ininterrupta.
 
+\section{Solução adotada}
+
+\subsection{Controle de temperatura}
+
+Para realizar o controle da temperatura, permitindo que o chopp esteja sempre gelado quando da retirada, 
+é utilizado o sensor de temperatura DS18B20 presente na Figura \ref{sensor-temperatura}. 
+Ele  permite a leitura de temperatura  mesmo em ambientes úmidos, tal qual esta aplicação. 
+O sensor descrito mede temperaturas entre   $ -55 ^\circ C$ e $125 ^\circ C$ com erro de $\pm 0.5 ^\circ C$.
+O sensor encontra-se posicionado na saída de chopp, que permite uma leitura mais fidedigna da
+temperatura real do chopp, uma vez que  na saída o chopp já circulou por toda a serpentina e está em
+equilíbrio térmico. O modo como esse sensor é conectado pode ser visto na Figura \ref{esquema-temperatura}.
+
+\begin{figure}[!htb]
+            \centering
+         	\includegraphics[scale= 0.08]{figuras/temperatura.jpg}
+            \caption{Sensor de temperatura DS18B20. Fonte: Própria.}
+            \label{sensor-temperatura}
+\end{figure}
+               
+A medição da temperatura permite a ativação do compressor mantendo a temperatura na faixa
+ideal entre $-1$ e $1 ^\circ C$. Tal ativação será realizada pelo acionamento de um módulo relé  
+ligado ao compressor. 
+    
+\begin{figure}[!htb]
+           \centering
+           \includegraphics[scale= 0.5]{figuras/esquema.jpg}
+            \caption{Esquemático do sensor de temperatura. Imagem da internet.}
+            \label{esquema-temperatura}
+\end{figure}    
+    
+
+\subsection{Controle de saída de chopp}
+
+\subsubsection{Presença do copo}
+Há a necessidade de se verificar a presença do copo no sistema para que o chopp possa ser tirado. 
+Para tanto, inicialmente utilizou-se o sensor ultrassônico HC-SR04, porém, o mesmo inviabilizou seu
+uso devido a complexidade de sua comunicação com o computador (\textit{Raspberry pi}).
+
+Como solução mais direta e que evitaria tal nível de complexidade, optou-se por utilizar um sensor de trilha, 
+que se comunica de forma direta com o computador e retorna um valor binário para a presença ou não do copo. 
+Essa escolha traz como consequências a necessidade de uma tira branca no copo
+ e a necessidade de uso de um copo transparente, para não interferir com os sensores.
 
 
+\subsubsection{Estimar volume no copo}
+Para que se pudesse ter um controle do volume presente no copo e consequentemente volume 
+restante nos reservatórios, inicialmente pensou-se em utilizar dois sensores (por redundância), 
+sendo eles o sensor de fluxo YFS201 e uma célula de carga.
+
+Obtiveram-se resultados satisfatórios na montagem do sensor de fluxo, porém verificou-se um erro 
+muito grande em suas medidas, o qual chegava a dez porcento nos testes efetuados. 
+Já quanto ao sensor de carga, não houve sucesso em sua implementação, apresentando resultados quase que aleatórios.
+
+Após discutir o presente problema com professores e orientadores, outra solução foi proposta.
+A solução proposta se utiliza de diodos emissores de luz e fototransistores posicionados a 
+uma distância conhecida. Sabendo-se a bitola do tubo utilizado e, contando-se o tempo entre 
+os acionamentos, pode-se calcular o fluxo passante, porém também não se obteve sucesso nessa abordagem
+
+A solução final encontrada foi se utilizar de sensores de trilha posicionados ao longo do copo, juntamente com um acionamento 
+por tempo. O acionamento por tempo garante que não se passe do volume total do copo, em caso de falha,
+e o sensores de trilha garantem o volume solicitado. Isso foi projetado de modo que se garantisse uma maior precisão e eficácia
+na tiragem do chopp, dadas pelos sistemas redundantes.
 
 
+\subsubsection{Garantir o colarinho escolhido}
+O controle do colarinho é feito através da atuação de motores, estes  movimentam
+a alavanca que controla a saída de chopp e colarinho. Desta forma é necessário realizar 
+medições de tempo para cada tamanho de colarinho selecionável, servindo assim a quantidade. 
+Esse acionamento é feito por tempo e relaciona-se com a entrada de ar no  sistema.
+
+
+\subsection{Atuação dos motores}
+Dois dos mais importantes subsistemas que contribuem diretamente com a experiência do usuário são 
+a inclinação do copo e a tiragem automática do chopp, para tais tarefas fez-se o uso de motores de passo.
+Para o controle dos motores usou-se dos pinos da \textit{Raspberry pi}.
+
+Os motores precisam ser alimentados com 12V, para isso usa-se uma fonte de energia externa. Isso é dado pelo
+ consumo de corrente dos motores, que é superior a aquela fornecida pelos pinos da \textit{Raspberry pi}. Assim,
+fez-se necessário o uso de um \textit{driver} L298N. A Figura \ref{motor} mostra o sistema dos motores montado.
+
+\begin{figure}[!h]
+            \centering
+         	\includegraphics[scale= 0.08]{figuras/motor.jpg}
+            \caption{Sistema de acionamento de motor de passo.}
+            \label{motor}
+\end{figure}
+
+\newpage
+\subsection{Abertura do reservatório de copos}
+
+ Esse serviço se fez necessário, após a decisão de disponibilizar o copo ao usuário, 
+ portanto os copos são  armazenados na própria máquina. Para disponibilizar os copos, 
+ eles são dispostos de forma que sempre que exista uma requisição de um chopp, 
+ um copo caia em um reservatório próprio. Para empurrar os copos são utilizados duas 
+ solenoides de modelo TAU-0530, uma delas pode ser vista na Figura \ref{solenoide}. 
+
+\begin{figure}[!h]
+            \centering
+         	\includegraphics[scale= 0.06]{figuras/solenoide.jpg}
+            \caption{Solenoide utilizado.}
+            \label{solenoide}
+\end{figure}
+
+	
 \section{Relatório de teste}
 
-\subsection{Relatório Controle de Temperatura}
-\textbf{ \\
-  Título: Relatório Controle de Temperatura  \\
-    Autores: Gabriel Araújo, Ithallo Guimarães, Lucas Raposo e Oziel da Silva\\
-      Data: 15/11/2017} \\
-
-
-
-\subsubsection{Introdução}
-    Neste experimento será testado a capacidade e a precisão das medidas realizadas pelo sensor de temperatura DS18B20, utilizado neste trabalho para o acionamento do compressor visando manter a temperatura correta do chopp.
-
-\subsubsection{Materiais}
-\begin{itemize}
-     \item Sensor DS18B20
-     \item Resistor de 4.7 KOhms
-     \item Raspberry
-     \item Módulo Relé
-         
-\end{itemize}
-
-\subsubsection{Procedimento Experimental}
-     Após posicionar o sensor na saída de chopp, ligou-se o sensor a raspberry e utilizou a resistência entre o cado de alimentação VCC e o cabo de dados. Utilizando de código implementado em python foram feitas diversas leituras de temperatura, de posse destes dados a compressor era ativado ou desativado de acordo com as necessidades do projeto. As medições em seguida foram aferidas com um termômetro laser.
-\subsubsection{Resultados e Discussão}
-     Comparando os dados medidos com aqueles do termômetro laser percebeu-se uma pequena diferença, mas nada que ultrapassasse o erro fornecido pelo fabricante, a ativação do compressor através do módulo relé foi realizada dentro da margem de temperatura aplicados.
-\subsubsection{Conclusão}
-     Ao final percebeu-se uma precisão satisfatória do sensor, confirmando assim o seu uso no sistema de controle da temperatura do chopp.
-
-%%%%%%%%%%%%%
-
-
-\subsection{Relatório Abertura do Compartimento de Copos}     
-\textbf{ \\
-  Título: Relatório Abertura do Compartimento de Copos  \\
-    Autores: Gabriel Araújo, Ithallo Guimarães, Lucas Raposo e Oziel da Silva \\
-      Data: 17/11/2017} \\
-
-
-
-\subsubsection{Introdução}
-    Este subsistema é responsável pela liberação do copo ao cliente, o copo será liberado automaticamente cabendo ao cliente apenas posiciona-lo no devido lugar. Coube a eletrônica nesse subsistema a missão de ativar e desativar a solenoide que irá puxar uma porta, desta forma os copos inclinados cairão no compartimento.
-
-\subsubsection{Materiais}
-\begin{itemize}
-     \item Solenoide com mola
-     \item Raspberry
-     \item Módulo Relé
-     \item Fonte de alimentação 12V    
-         
-\end{itemize}
-
-\subsubsection{Procedimento Experimental}
-    Para este experimento realizou-se a ligação da solenoide ao módulo relé, o pino responsável pela compartimento de copos era ativado e desativado como se fossem sucessivas aberturas do compartimento de copo, testando assim além da resposta o comportamento da mola presente na solenoide.
-
-\subsubsection{Conclusão}
-    A mola apresentou uma boa resposta, mas o experimento apresentaria melhores resultados caso fosse realizado juntamente com o mecanismo de liberação para que o tempo necessário para a passagem de um copo pudesse ser medido com maior fidelidade.
-
-%%%%%%%%%%%%%%%%%
-
-\subsection{Relatório Saída de Chopp}    
- \textbf{ \\
-  Título: Relatório Saída de Chopp \\
-    Autores: Gabriel Araújo, Ithallo Guimarães, Lucas Raposo e Oziel da Silva \\
-      Data: 17/11/2017} \\
-
-
-
-\subsubsection{Introdução}
-    Este subsistema irá tratar da liberação de chopp, que consiste no processo de verificação do copo, inclinação e ativação da torneira.
-
-\subsubsection{Materiais}
-\begin{itemize}
-     \item Sensor de trilha
-     \item Raspberry
-     \item Motores de passo
-     \item Fonte de alimentação 12V    
-         
-\end{itemize}
-
-\subsubsection{Procedimento Experimental}
-
-    Para este experimento foram testados dois módulos, o primeiro consiste em medir uma coluna de chopp através do sensor de trilha que detecta a espuma do chopp e a inclinação do copo através dos motores de passo.
-
-    Os sensores de trilha foram fixados em um copo e inclinados, foi adicionado ao copo então chopp quando atingida a altura esperada o sensor avisava através de um LED.
-    Os motores foram testados através de giros em diversos ângulos, seu software permitia como entrada um ângulo em graus e então seu eixo executava a rotação solicitada.
-
-\subsubsection{Conclusão}
-
-   O sensor de trilha conseguiu detectar a borda de espuma, apenas necessita de uma boa calibragem. Os motores também rotacionaram o ângulo desejado faltando apenas definir esse dado juntamente com o pessoal responsável pele mecanismo.
-     
-
-     
-\noindent

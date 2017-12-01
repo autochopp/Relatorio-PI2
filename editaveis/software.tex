@@ -275,11 +275,13 @@ Para entendimento da solução implementada, será discutido nos tópicos seguin
 
 Por fim, decidiu-se desenvolver um aplicativo multiplataforma utilizando o \textit{framework Ionic 3}, baseado em \textit{Angular 4}, uma biblioteca Typescript que facilita a criação de aplicativos \textit{Web} e \textit{Mobile}. Conforme \cite{ionic}, Ionic é um \textit{framework open source} para desenvolvimento de aplicativos \textit{mobile} utilizando tecnologias web(HTML, CSS, JavaScript). O Ionic usa do poder do Angular para trabalhar com componentização, elevando o reaproveitamento de código.
 
+A Figura \ref{ionicdir} exibe como é a estrutura de diretórios criada pelo Ionic. Em \textit{app} encontra-se os modelos do sistema, são objetos transientes, uma vez que os dados são salvos de fato no \textit{webservice}. Em \textit{pages} tem-se todas as páginas disponíveis no aplicativo. Por fim, em \textit{providers} encontra-se os componentes que se comunicam com o \textit{webservice} via HTTP.
+
 \begin{figure}[!hb]
     \centering
     \includegraphics{figuras/ionicstructure.png}
     \caption{Estrutura de diretórios do Ionic 3.}
-    \label{home-page}
+    \label{ionicdir}
 \end{figure}
 
 \subsubsection{Aplicativo}
