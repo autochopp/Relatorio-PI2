@@ -302,7 +302,6 @@ A seguir, de acordo com os requisitos acordados, estão as imagens das principai
 
 Não foram especificados casos de teste para o aplicativo \textit{mobile}, pois acredita-se que a especificação por exemplo elicitada já serve como caso de teste, uma vez que os cenários não se divergem tanto.
 
-
 \section[Sistema Administrativo]{Sistema Administrativo}
 
 O Sistema administrativo está incorporado ao aplicativo do Sistema de Compras, porém apenas usuários administradores possuem acesso. Ao utilizar o aplicativo, o usuário visualiza as seguintes informações referentes ao estado da máquina: a quantidade de chopp que a máquina possui, a temperatura de resfriamento e o status da conexão da máquina com a internet.
@@ -319,7 +318,6 @@ A imagem abaixo representa a tela do usuário administrador:
     \caption{Tela do Administrador. Fonte: Própria.}    
     \label{home-page}
 \end{figure}
-
 
 \section[Sistema de Validação de Compra]{Sistema de Validação de Compra}
 \subsection[Requisitos do Projeto]{Requisitos do Projeto}
@@ -395,65 +393,24 @@ responsável pelo gerenciamento da leitura dos cupons junto a câmera.
 
 \subsubsection{Aplicação Final}
 
-\begin{figure}[!htb]
-    \centering
-    \includegraphics[scale= 0.3]{figuras/inicio.png}        
-    \caption{Tela inicial. Fonte: Própria.}
-    \label{classes-kivy}
-\end{figure}
-
-\begin{figure}[!htb]
-    \centering
-    \includegraphics[scale= 0.3]{figuras/qrcode.png}        
-    \caption{Tela de leitura do QR Code. Fonte: Própria.}
-    \label{classes-kivy}
-\end{figure}
+COLOCAR PRINTS
 
 \subsection{Casos de Teste}
 
 \subsubsection{Leitura do Qrcode}
 
-Para leitura do Qrcode, o usuário deve posicionar um Qrcode em frente a câmera.
-Para testar esse comportamento, foi verificado se a câmera conseguia identificar a string dentro do Qrcode.
+Para leitura do Qrcode, o usuário deve posicionar um Qrcode em frente a câmera. Para testar esse comportamento, foi verificado se a câmera conseguia identificar a string dentro do Qrcode.
 
 \subsubsection{Validação do Qrcode}
 
-Para validar o Qrcode, a aplicação deve mandar uma requisição \textit{POST} ao WebService descrito anteriormente.
-Para testar este comportamento, foi verificado o retorno da requisição ao WebService.
+Para validar o Qrcode, a aplicação deve mandar uma requisição \textit{POST} ao WebService descrito anteriormente. Para testar este comportamento, foi verificado o retorno da requisição ao WebService.
 
 \subsubsection{Integração com o eletrônica}
 
-Como mostra a figura \ref{classes-kivy}, a classe \textit{MachineController} é a interface que separa
-a implementação dos componentes embarcados do sistema de validação de compras. Para testar o funcionamento
+Como mostra a figura \ref{classes-kivy}, a classe \textit{MachineController} é a interface que separa a implementação dos componentes embarcados do sistema de validação de compras. Para testar o funcionamento
 correto do sistema independente do módulo embarcado, foi implementado os métodos da interface com
 \textit{sleeps}, que simularam o comportamento do módulo embarcado.
 
 \section{Subsistemas integrados}
 
-Com o objetivo de demonstrar a integração da solução, por meio da interação entre os subsistemas a partir a ação inicial 
-do usuário, foram criados diagramas de sequência com duas das principais funcionalidades do sistema (Compra do chopp e 
-Tiragem do chopp).
-
-
-"\textit{O diagrama de sequência é um diagrama comportamental que preocupa-se com a ordem temporal em que as mensagens 
-são trocadas entre os objetos envolvidos em um determinado processo.}\footnote{GUEDES, Gilleanes TA. UML 2-Uma Abordagem 
-Prática-1ª Edição. Novatec Editora, 2011.}"  Partindo dessa definição, os diagramas de sequências 
-foram criados, tratando os sistemas como objetos da solução de software global. Os diagramas são apresentados em seguida, 
-e envolvem a interação entre WebService, Aplicativo Mobile (engloba o Sistema Administrativo), Aplicação Embarcada (Sistema de 
-Validação de Compra) e API do PagSeguro, tendo como ator o usuário da solução.
-
-
-\begin{figure}[!htb]
-    \centering
-    \includegraphics[scale= 0.4]{figuras/Diagrama-de-Sequencia-Compra-do-Chopp.png}        
-    \caption{Diagrama de Sequência - Compra do Chopp. Fonte: Própria.}
-    \label{classes-kivy}
-\end{figure}
-
-\begin{figure}[!htb]
-    \centering
-    \includegraphics[scale= 0.4]{figuras/Diagrama-de-Sequencia-Tiragem-do-Chopp.png}        
-    \caption{Diagrama de Sequência - Tiragem do Chopp. Fonte: Própria.}
-    \label{classes-kivy}
-\end{figure}
-
+EXPLICAR E COLOCAR DIAGRAMAS DE SEQUÊNCIA
